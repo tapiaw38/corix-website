@@ -40,7 +40,7 @@
   }
 
   .section-subtitle {
-    @apply text-base sm:text-lg text-ctp-subtext1 mb-10 md:mb-12 max-w-2xl mx-auto;
+    @apply text-base sm:text-lg text-ctp-subtext1 mb-10 md:mb-12 max-w-[520px] mx-auto;
   }
 
   .gradient-text {
