@@ -6,5 +6,5 @@ export default defineConfig({
   integrations: [tailwind(), icon({ include: { lucide: ["*"] } })],
   output: "static",
   site: "https://tapiaw38.github.io",
-  base: process.env.GITHUB_ACTIONS ? "/corix-website/" : "/",
+  base: process.env.GITHUB_ACTIONS ? "/coren-website/" : "/",
 });
