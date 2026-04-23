@@ -35,6 +35,7 @@ const sidebar = [
     icon: 'lucide:brain',
     links: [
       ['modes', 'AI modes'],
+      ['panel-commands', 'Panel commands'],
       ['shortcuts', 'Keyboard'],
       ['service', 'User service'],
     ],
@@ -341,6 +342,47 @@ ai-panel-width = 90</code></pre>
               <h4 class="mb-2 font-semibold text-tn-text">Debug</h4>
               <p class="text-sm leading-relaxed text-tn-subtext">Only reacts on outputs that look like a failure path.</p>
             </div>
+          </div>
+
+          <h3 id="panel-commands" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Panel commands</h3>
+          <p class="mb-4 leading-relaxed text-tn-subtext">
+            Type a slash command in the AI input to trigger panel actions without leaving the keyboard. Commands show an interactive overlay as you type.
+          </p>
+          <div class="overflow-x-auto mb-10">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-white/[0.08]">
+                  <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
+                  <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
+                </tr>
+              </thead>
+              <tbody class="text-tn-subtext">
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/new</code></td>
+                  <td class="px-4 py-3">Create a new conversation and clear the panel history.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/history</code></td>
+                  <td class="px-4 py-3">Browse and resume recent conversations from the panel.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/mode</code></td>
+                  <td class="px-4 py-3">Switch the active AI mode: default, watch, execute, or debug.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/panel</code></td>
+                  <td class="px-4 py-3">Move the AI panel: bottom, top, left, or right.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/commit</code></td>
+                  <td class="px-4 py-3">Select files to stage, then let the AI generate a commit message for you.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/reload</code></td>
+                  <td class="px-4 py-3">Reload <code>~/.config/coren/config</code> without restarting, including theme changes.</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <h3 id="shortcuts" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Keyboard</h3>
