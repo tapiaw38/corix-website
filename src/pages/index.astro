@@ -338,8 +338,9 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
             <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
             <span class="ml-3 text-xs font-bold text-tn-comment">Step 3</span>
           </div>
-          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># start the proxy</span>
-<span class="text-tn-green">coren-proxi</span>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># install and start the proxy as a user service</span>
+<span class="text-tn-green">corend service install</span>
+<span class="text-tn-green">corend service start</span>
 
 <span class="text-tn-comment"># open the TUI</span>
 <span class="text-tn-green">coren</span></code></pre>
