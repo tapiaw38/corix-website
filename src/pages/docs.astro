@@ -508,9 +508,11 @@ cursor-style = underline</code></pre>
 
           <h3 id="port-mismatch" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Port mismatch</h3>
           <div class="card mb-8 p-5">
-            <p class="text-sm leading-relaxed text-tn-subtext">
+            <p class="mb-3 text-sm leading-relaxed text-tn-subtext">
               If the AI panel cannot reach the proxy, verify that `coren-proxi` is running and that your local config points at the expected proxy URL.
             </p>
+            <pre class="overflow-x-auto rounded-xl border border-white/[0.08] bg-tn-night/70 p-4 text-sm font-mono"><code><span class="text-tn-green">corend service status</span>
+<span class="text-tn-green">corend service logs</span></code></pre>
           </div>
 
           <h3 id="mongo" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">MongoDB</h3>
@@ -521,8 +523,7 @@ cursor-style = underline</code></pre>
               <span class="h-2.5 w-2.5 rounded-full bg-tn-green/80"></span>
               <span class="ml-auto text-xs text-tn-muted">db</span>
             </div>
-            <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-green">cd ../coren-proxi</span>
-<span class="text-tn-green">corend db status</span>
+            <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-green">corend db status</span>
 <span class="text-tn-green">corend db logs -f</span></code></pre>
           </div>
 
@@ -532,7 +533,7 @@ cursor-style = underline</code></pre>
               `corend shell init zsh --workspace /path/to/repo` or `corend shell init bash --workspace /path/to/repo` updates your shell rc and writes `export COREN_WORKSPACE="..."`.
             </p>
             <p class="text-sm leading-relaxed text-tn-subtext">
-              If coren opens in the right directory but AI context looks wrong, confirm that variable or set `workspace = /path/to/repo` in `~/.config/coren/config`.
+              If `coren` opens in the right directory but AI context looks wrong, confirm that variable or set `workspace = /path/to/repo` in `~/.config/coren/config`.
             </p>
           </div>
         </section>
