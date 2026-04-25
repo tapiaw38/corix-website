@@ -298,7 +298,7 @@ cursor-style = underline</code></pre>
               `ollama` is the safest recommendation when you want `ai-suggest`, inline assist, watch, execute, or debug enabled all the time. Those paths can generate repeated requests, so a paid hosted API can consume credits much faster than expected.
             </p>
             <p class="text-sm leading-relaxed text-tn-subtext">
-              `coren-proxi` can also route specific AI services to specific providers. A common split is `assistant -> deepseek` and `suggestions`, `inline`, or `commit` -> `ollama`, so the cheap local model handles high-frequency requests.
+              `coren-proxi` can also route specific AI services to specific providers. A common split is `assistant -> deepseek` and `suggestions`, `inline`, `commit`, or `review` -> `ollama`, so the cheap local model handles high-frequency requests.
             </p>
           </div>
           <div class="overflow-x-auto mb-10">
@@ -339,7 +339,7 @@ cursor-style = underline</code></pre>
 
           <p class="mb-3 text-sm font-semibold text-tn-text">Routing AI services to different providers</p>
           <p class="mb-4 text-sm leading-relaxed text-tn-subtext">
-            Provider routing is per service, not just global. The visible service names are `assistant`, `suggestions`, `inline`, and `commit`. If one service has no explicit mapping, it falls back to the global active provider.
+            Provider routing is per service, not just global. The visible service names are `assistant`, `suggestions`, `inline`, `commit`, and `review`. If one service has no explicit mapping, it falls back to the global active provider.
           </p>
           <div class="terminal-window mb-6">
             <div class="terminal-chrome">
@@ -358,6 +358,7 @@ cursor-style = underline</code></pre>
 <span class="text-tn-green">corend ia-service use suggestions ollama</span>
 <span class="text-tn-green">corend ia-service use inline ollama</span>
 <span class="text-tn-green">corend ia-service use commit ollama</span>
+<span class="text-tn-green">corend ia-service use review ollama</span>
 
 <span class="text-tn-muted"># remove one override and fall back to the global active provider</span>
 <span class="text-tn-green">corend ia-service reset commit</span></code></pre>
@@ -445,6 +446,10 @@ cursor-style = underline</code></pre>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/commit</code></td>
                   <td class="px-4 py-3">Select files to stage, then let the AI generate a commit message for you.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/review</code></td>
+                  <td class="px-4 py-3">Pick a base and head branch from an interactive list, then analyze each changed file for risks, regressions, and missing tests. Staged changes are also available as a review target.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/reload</code></td>
