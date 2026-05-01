@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-tn-bg text-tn-text antialiased;
+  }
+  * {
+    @apply box-border;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-coren-accent text-tn-bg px-6 py-3 rounded font-semibold font-bold
+           hover:opacity-90 transition-all duration-200
+           shadow-[0_4px_20px_0_rgba(122,162,247,0.3)]
+           hover:shadow-[0_6px_28px_0_rgba(122,162,247,0.45)]
+           hover:-translate-y-px active:translate-y-0 inline-flex items-center gap-2;
+  }
+
+  .btn-secondary {
+    @apply border border-white/20 text-tn-text px-6 py-3 rounded font-semibold
+           hover:border-coren-accent/50 hover:bg-white/[0.04]
+           transition-all duration-200 inline-flex items-center gap-2;
+  }
+
+  .card {
+    @apply bg-white/[0.03] rounded-lg p-6 border border-white/[0.07]
+           hover:bg-white/[0.05] hover:border-coren-accent/20
+           transition-all duration-300 hover:-translate-y-1;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold text-tn-text mb-4 tracking-tight;
+  }
+
+  .section-subtitle {
+    @apply text-base sm:text-lg text-tn-subtext mb-10 md:mb-12 max-w-[520px] mx-auto;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-coren-accent to-tn-cyan bg-clip-text text-transparent;
+  }
+
+  .terminal-window {
+    @apply bg-tn-night rounded-xl border border-white/[0.08] overflow-hidden;
+  }
+
+  .terminal-chrome {
+    @apply flex items-center gap-1.5 px-4 py-3 bg-tn-bg border-b border-white/[0.06];
+  }
+}
+
+@layer utilities {
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: float 9s ease-in-out infinite;
+  }
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Scroll-reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+.reveal-delay-5 {
+  transition-delay: 0.5s;
+}
+.reveal-delay-6 {
+  transition-delay: 0.6s;
+}

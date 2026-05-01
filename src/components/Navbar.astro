@@ -1,0 +1,32 @@
+---
+import { Icon } from 'astro-icon/components';
+const isHome = Astro.url.pathname === '/';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-tn-bg/90 backdrop-blur-xl border-b border-white/[0.06]">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href={import.meta.env.BASE_URL} class="flex items-center gap-2 text-tn-text font-bold text-lg tracking-tight">
+      <img src={`${import.meta.env.BASE_URL}coral-icon.png`} alt="coren" class="w-6 h-6 object-contain" />
+      <span class="text-coren-accent font-bold">coren</span>
+    </a>
+
+    {isHome && (
+      <div class="hidden md:flex items-center gap-8 text-sm text-tn-subtext">
+        <a href="#features" class="hover:text-tn-text transition-colors">Features</a>
+        <a href="#modes" class="hover:text-tn-text transition-colors">Modes</a>
+        <a href="#install" class="hover:text-tn-text transition-colors">Install</a>
+        <a href="#pricing" class="hover:text-tn-text transition-colors">Pricing</a>
+      </div>
+    )}
+
+    <div class="flex items-center gap-2">
+      <a
+        href={`${import.meta.env.BASE_URL}docs`}
+        class="flex items-center gap-2 text-sm border border-white/20 px-4 py-2 rounded-lg hover:border-coren-accent/40 hover:bg-white/[0.04] transition-all duration-200"
+      >
+        <Icon name="lucide:book-open" class="w-4 h-4" />
+        Docs
+      </a>
+    </div>
+  </nav>
+</header>

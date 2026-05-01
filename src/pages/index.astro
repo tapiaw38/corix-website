@@ -1,0 +1,513 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Icon } from 'astro-icon/components';
+
+const features = [
+  {
+    icon: 'lucide:square-terminal',
+    color: 'text-coren-accent',
+    bg: 'bg-coren-accent/10',
+    title: 'Terminal first',
+    desc: 'A Go terminal interface with scrollback, mouse support, live shell session rendering, and an AI panel inside the same screen.',
+  },
+  {
+    icon: 'lucide:wand-sparkles',
+    color: 'text-tn-yellow',
+    bg: 'bg-tn-yellow/10',
+    title: 'Inline assist',
+    desc: 'Shows ghost-text suggestions while you type and can react to command output without moving you into a browser.',
+  },
+  {
+    icon: 'lucide:git-pull-request-arrow',
+    color: 'text-tn-orange',
+    bg: 'bg-tn-orange/10',
+    title: 'Review navigator',
+    desc: 'Review staged changes or branch diffs file by file, resolve merge conflicts, ask AI for risks and missing tests, and keep the whole flow inside the terminal.',
+  },
+  {
+    icon: 'lucide:folder-search',
+    color: 'text-tn-cyan',
+    bg: 'bg-tn-cyan/10',
+    title: 'Workspace aware',
+    desc: 'The shell integration writes `COREN_WORKSPACE` so the proxy can keep the current repo as operating context.',
+  },
+  {
+    icon: 'lucide:database',
+    color: 'text-tn-green',
+    bg: 'bg-tn-green/10',
+    title: 'Local proxy',
+    desc: '`coren-proxi` runs locally, stores providers and conversations in MongoDB, and exposes the API that coren consumes.',
+  },
+];
+
+const modes = [
+  {
+    icon: '?',
+    iconColor: 'text-tn-blue',
+    bg: 'bg-tn-blue/10',
+    border: 'border-tn-blue/20',
+    name: 'Default',
+    tag: 'Ask directly',
+    desc: 'Open the panel and chat with the active provider in the current workspace.',
+  },
+  {
+    icon: '◉',
+    iconColor: 'text-tn-green',
+    bg: 'bg-tn-green/10',
+    border: 'border-tn-green/20',
+    name: 'Watch',
+    tag: 'Observe output',
+    desc: 'Captures command output after it settles and pushes that context to the AI automatically.',
+  },
+  {
+    icon: '⚡',
+    iconColor: 'text-coren-accent',
+    bg: 'bg-coren-accent/10',
+    border: 'border-coren-accent/20',
+    name: 'Execute',
+    tag: 'Suggest next commands',
+    desc: 'Turns model suggestions into selectable command chips that you can confirm before running.',
+  },
+  {
+    icon: '🔧',
+    iconColor: 'text-tn-orange',
+    bg: 'bg-tn-orange/10',
+    border: 'border-tn-orange/20',
+    name: 'Debug',
+    tag: 'Trigger on failure',
+    desc: 'Only reacts when the terminal output looks like an error path and proposes a fix.',
+  },
+];
+
+const themes = [
+  {
+    name: 'Catppuccin',
+    key: 'catppuccin',
+    desc: 'Soft pastel palette. Mauve accent on a dark blue-gray base.',
+    accent: '#cba6f7',
+    bg: '#1e1e2e',
+    colors: ['#1e1e2e', '#313244', '#cba6f7', '#89dceb', '#a6e3a1', '#f38ba8'],
+  },
+  {
+    name: 'Dracula',
+    key: 'dracula',
+    desc: 'High contrast dark theme. Pink accent on a charcoal base.',
+    accent: '#ff79c6',
+    bg: '#282a36',
+    colors: ['#282a36', '#44475a', '#ff79c6', '#8be9fd', '#50fa7b', '#ff5555'],
+  },
+  {
+    name: 'Rosé Pine',
+    key: 'rosepine',
+    desc: 'Muted, warm tones with a dusty rose accent on deep violet.',
+    accent: '#ebbcba',
+    bg: '#191724',
+    colors: ['#191724', '#26233a', '#ebbcba', '#9ccfd8', '#31748f', '#eb6f92'],
+  },
+  {
+    name: 'Tokyo Night',
+    key: 'tokyonight',
+    desc: 'Cool navy base with a vivid blue accent. City lights at night.',
+    accent: '#7aa2f7',
+    bg: '#24283b',
+    colors: ['#24283b', '#414868', '#7aa2f7', '#7dcfff', '#9ece6a', '#f7768e'],
+  },
+];
+
+const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq', 'custom'];
+---
+
+<Layout>
+  <section class="relative overflow-hidden px-6">
+    <div class="absolute top-0 left-1/4 h-[520px] w-[520px] rounded-full bg-coren-accent/[0.06] blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 h-[420px] w-[420px] rounded-full bg-tn-cyan/[0.04] blur-3xl pointer-events-none"></div>
+
+    <div class="mx-auto grid max-w-6xl items-center gap-12 py-12 md:grid-cols-2 md:py-24">
+      <div class="reveal">
+        <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight text-tn-text sm:text-5xl md:text-6xl">
+          A terminal that keeps
+          <span class="gradient-text">the AI local to your flow</span>
+        </h1>
+        <p class="mb-8 max-w-xl text-lg leading-relaxed text-tn-subtext">
+          `coren` is the terminal UI. `coren-proxi` is the local API bridge. `corend` handles setup for MongoDB, providers, shell integration, and the user service.
+        </p>
+        <p class="mb-8 max-w-xl text-sm leading-relaxed text-tn-comment">
+          Linux is the only supported platform right now. macOS support is planned for a later release.
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#install" class="btn-primary">
+            <Icon name="lucide:download" class="h-4 w-4" />
+            Installation
+          </a>
+          <a href={`${import.meta.env.BASE_URL}docs`} class="btn-secondary">
+            <Icon name="lucide:book-open" class="h-4 w-4" />
+            Read docs
+          </a>
+        </div>
+        <div class="mt-10 grid grid-cols-3 gap-6 text-sm text-tn-comment">
+          <div>
+            <span class="block text-2xl font-bold text-tn-text">3</span>
+            binaries
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-tn-text">4</span>
+            AI modes
+          </div>
+          <div>
+            <span class="block text-2xl font-bold text-tn-text">1</span>
+            local proxy
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden md:block reveal reveal-delay-2">
+        <div class="terminal-window shadow-2xl shadow-black/50">
+          <div class="terminal-chrome">
+            <span class="h-3 w-3 rounded-full bg-tn-red/80"></span>
+            <span class="h-3 w-3 rounded-full bg-tn-yellow/80"></span>
+            <span class="h-3 w-3 rounded-full bg-tn-green/80"></span>
+            <span class="ml-auto text-xs text-tn-comment">coren + coren-proxi</span>
+          </div>
+          <div class="border-b border-white/[0.05] bg-tn-storm/60 px-3 py-1.5 text-xs text-tn-comment">
+            workspace: ~/Workspace/oceanstack/coren-website
+          </div>
+          <div class="space-y-1 p-4 text-sm font-mono">
+            <div><span class="text-tn-green">❯</span> <span class="text-tn-text">coren --host 127.0.0.1 --port 4000</span></div>
+            <div class="pl-2 text-tn-comment">connected to local proxy</div>
+            <div class="pl-2 text-tn-comment">mode: watch</div>
+            <div class="pl-2 text-tn-red">go test ./... failed in provider package</div>
+          </div>
+          <div class="border-t border-white/[0.08]">
+            <div class="flex items-center justify-between border-b border-white/[0.05] px-4 py-2 text-xs text-tn-comment">
+              <span class="font-bold text-coren-accent">✦ default</span>
+              <span>/mode watch</span>
+            </div>
+            <div class="space-y-1.5 bg-tn-night/50 p-4 text-xs font-mono">
+              <p class="text-tn-subtext">The active provider is reachable through `127.0.0.1:4000`.</p>
+              <p class="text-tn-subtext">The failing test came from the current workspace and the proxy has its conversation state in MongoDB.</p>
+              <p class="pl-2 text-tn-green">Try: go test ./... -run Provider</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-24" id="features">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">What is actually installed</h2>
+        <p class="section-subtitle">A single installer drops the terminal, proxy server, and operator CLI on the machine.</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+        {features.map((feature, index) => (
+          <div class={`card reveal reveal-delay-${(index % 3) + 1}`}>
+            <div class={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg ${feature.bg}`}>
+              <Icon name={feature.icon} class={`h-5 w-5 ${feature.color}`} />
+            </div>
+            <h3 class="mb-2 font-bold text-tn-text">{feature.title}</h3>
+            <p class="text-sm leading-relaxed text-tn-comment">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="modes" class="relative overflow-hidden px-6 py-24">
+    <div class="absolute inset-0 bg-tn-night/40 pointer-events-none"></div>
+    <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-coren-accent/[0.04] blur-3xl pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-6xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">Four modes in one shell</h2>
+        <p class="section-subtitle">The runtime state stores the current panel position and active mode between sessions.</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        {modes.map((mode, index) => (
+          <div class={`rounded-xl border bg-tn-storm/30 p-6 transition-all duration-300 hover:bg-tn-storm/50 ${mode.border} reveal reveal-delay-${index + 1}`}>
+            <div class="flex items-start gap-4">
+              <div class={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-xl font-bold ${mode.bg} ${mode.iconColor}`}>
+                {mode.icon}
+              </div>
+              <div>
+                <div class="mb-1 flex items-center gap-2">
+                  <h3 class="text-lg font-bold text-tn-text">{mode.name}</h3>
+                  <span class={`rounded-full px-2 py-0.5 text-xs ${mode.bg} ${mode.iconColor}`}>{mode.tag}</span>
+                </div>
+                <p class="text-sm leading-relaxed text-tn-comment">{mode.desc}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Themes section -->
+  <section id="themes" class="px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">Custom themes</h2>
+        <p class="section-subtitle">Set your preferred color scheme in `~/.config/coren/config`. Reloads without restarting.</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {themes.map((theme, index) => (
+          <div class={`card reveal reveal-delay-${index + 1} flex flex-col gap-4`}>
+            <!-- Color swatch row -->
+            <div class="flex gap-1.5">
+              {theme.colors.map((color) => (
+                <span
+                  class="h-5 w-5 rounded-full border border-white/10 flex-shrink-0"
+                  style={`background-color: ${color}`}
+                ></span>
+              ))}
+            </div>
+            <!-- Mini terminal preview -->
+            <div class="rounded-lg overflow-hidden border border-white/[0.07]" style={`background-color: ${theme.bg}`}>
+              <div class="flex items-center gap-1 px-2 py-1.5 border-b border-white/[0.06]" style={`background-color: ${theme.bg}`}>
+                <span class="h-2 w-2 rounded-full bg-tn-red/60"></span>
+                <span class="h-2 w-2 rounded-full bg-tn-yellow/60"></span>
+                <span class="h-2 w-2 rounded-full bg-tn-green/60"></span>
+              </div>
+              <div class="p-3 text-xs font-mono space-y-1">
+                <div style={`color: ${theme.accent}`}>✦ {theme.key}</div>
+                <div class="text-white/40">▸ you</div>
+                <div style={`color: ${theme.accent}`}>▸ ai</div>
+              </div>
+            </div>
+            <div>
+              <h3 class="font-bold text-tn-text mb-1">{theme.name}</h3>
+              <p class="text-xs leading-relaxed text-tn-comment mb-3">{theme.desc}</p>
+              <code class="text-xs rounded px-2 py-1 bg-tn-storm text-tn-muted">theme = {theme.key}</code>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 reveal reveal-delay-4">
+        <div class="terminal-window max-w-lg mx-auto">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-tn-comment">~/.config/coren/config</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># choose your theme</span>
+<span class="text-tn-text">theme = </span><span class="text-coren-accent">tokyonight</span>
+
+<span class="text-tn-comment"># reload inside coren with /reload</span></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install" class="px-6 py-24">
+    <div class="mx-auto max-w-4xl">
+      <div class="text-center reveal">
+        <h2 class="section-title">Install everything with one command</h2>
+        <p class="section-subtitle">The distributed installer downloads one platform bundle and installs `coren`, `coren-proxi`, and `corend` together.</p>
+      </div>
+
+      <div class="mt-10 space-y-5 text-left">
+        <div class="terminal-window reveal reveal-delay-1">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-tn-comment">Step 1</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># install coren, coren-proxi, and corend</span>
+<span class="text-tn-green">curl -fsSL https://tapiaw38.github.io/coren-website/install.sh | sh</span></code></pre>
+        </div>
+
+        <div class="terminal-window reveal reveal-delay-2">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-tn-comment">Step 2</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># bootstrap MongoDB and provider setup</span>
+<span class="text-tn-green">corend init</span>
+
+<span class="text-tn-comment"># activate your beta license (beta uses api-key)</span>
+<span class="text-tn-green">corend auth</span>
+<span class="text-tn-comment">→ select api-key → paste your license key</span></code></pre>
+        </div>
+
+        <div class="terminal-window reveal reveal-delay-3">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-tn-comment">Step 3</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># install and start the proxy as a user service</span>
+<span class="text-tn-green">corend service install</span>
+<span class="text-tn-green">corend service start</span>
+
+<span class="text-tn-comment"># open the TUI</span>
+<span class="text-tn-green">coren</span></code></pre>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3">
+        <div class="card p-5">
+          <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-comment">Binaries</p>
+          <p class="text-sm leading-relaxed text-tn-subtext">The installer puts `coren`, `coren-proxi`, and `corend` in the same bin directory and creates `cor -> coren`.</p>
+        </div>
+        <div class="card p-5">
+          <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-comment">Proxy default</p>
+          <p class="text-sm leading-relaxed text-tn-subtext">The normal user flow should just be `coren-proxi` and then `coren`. Extra flags should not be necessary in the website onboarding.</p>
+        </div>
+        <div class="card p-5">
+          <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-comment">Release bundle</p>
+          <p class="text-sm leading-relaxed text-tn-subtext">Each platform release should ship a single `.tar.gz` containing those 3 binaries so install stays atomic and predictable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="px-6 py-24">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-subtitle">The pricing direction should stay simple: Coren charges for support and premium features, not for basic access to the terminal itself.</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="card reveal reveal-delay-1 p-7">
+          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Current access</p>
+          <h3 class="mb-2 text-2xl font-bold text-tn-text">Coren</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-subtext">Core access</p>
+          <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
+            The base product stays simple: install the binaries, run `corend init`, authenticate with `corend auth login`, start `coren-proxi`, and open `coren`.
+          </p>
+          <div class="space-y-3 text-sm text-tn-subtext">
+            <p>Terminal UI, local proxy, and operator CLI</p>
+            <p>Per-service provider routing</p>
+            <p>Linux support available now</p>
+          </div>
+        </div>
+
+        <div class="card reveal reveal-delay-2 p-7">
+          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Commercial rollout</p>
+          <h3 class="mb-2 text-2xl font-bold text-tn-text">Support and features</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-subtext">From 2 USD</p>
+          <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
+            The paid side can stay focused on support quality, premium features, and team capabilities instead of charging for the core terminal workflow.
+          </p>
+          <div class="space-y-3 text-sm text-tn-subtext">
+            <p>`2 USD` Personal: premium features for individuals</p>
+            <p>`5 USD` Pro: priority features, earlier releases, and faster fixes</p>
+            <p>`20 USD` Enterprise: team support, compatibility with private company models, dedicated deployments by the Coren team, company-owned model infrastructure, and stronger privacy options</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden px-6 py-24">
+    <img
+      src={`${import.meta.env.BASE_URL}coral.png`}
+      alt=""
+      aria-hidden="true"
+      class="pointer-events-none absolute right-[-8rem] bottom-[-6rem] w-[28rem] max-w-none opacity-[0.08] blur-[1px] select-none"
+    />
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">Why this feels better</h2>
+        <p class="section-subtitle">The strongest part of coren is not a marketing claim. It is how the workflow stays inside the terminal instead of bouncing between separate surfaces.</p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        <div class="card reveal reveal-delay-1 border-coren-accent/30 bg-coren-accent/10 p-7">
+          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Coren</p>
+          <h3 class="mb-4 text-2xl font-bold text-coren-accent">Built around the terminal</h3>
+          <div class="space-y-3 text-sm leading-relaxed text-tn-subtext">
+            <p>AI panel and shell stay in one interface.</p>
+            <p>Workspace context is carried into the proxy instead of living in a separate app.</p>
+            <p>Suggest, watch, execute, and debug are part of the same terminal flow.</p>
+            <p>Local proxy and Ollama support make local-first setups practical.</p>
+            <p>Private company models and company-owned model infrastructure fit the product direction better.</p>
+            <p>Lower entry pricing can stay simple instead of forcing a high monthly plan first.</p>
+          </div>
+        </div>
+
+        <div class="card reveal reveal-delay-2 border-tn-red/25 bg-tn-red/5 p-7">
+          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Typical alternative flow</p>
+          <h3 class="mb-4 text-2xl font-bold text-tn-red">More context switching</h3>
+          <div class="space-y-3 text-sm leading-relaxed text-tn-subtext">
+            <p><span class="font-semibold text-tn-red">Split surfaces:</span> terminal and AI usually live in different places.</p>
+            <p><span class="font-semibold text-tn-red">Lost context:</span> repo state often needs to be re-explained or reattached.</p>
+            <p><span class="font-semibold text-tn-red">Weaker shell link:</span> suggestions and debugging are less connected to the live shell state.</p>
+            <p><span class="font-semibold text-tn-red">Local models second:</span> local-first workflows are often secondary instead of first-class.</p>
+            <p><span class="font-semibold text-tn-red">Higher price floor:</span> stronger AI workflows often start behind higher monthly plans.</p>
+            <p><span class="font-semibold text-tn-red">Model freedom limited:</span> BYOK, private company models, and dedicated deployments are often restricted to paid or enterprise tiers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="relative overflow-hidden px-6 py-24">
+    <div class="absolute inset-0 bg-gradient-to-br from-coren-accent/[0.06] via-transparent to-tn-cyan/[0.04] pointer-events-none"></div>
+    <div class="mx-auto max-w-4xl text-center reveal">
+      <h2 class="section-title">Supported provider presets</h2>
+      <p class="section-subtitle">The current CLI ships built-in presets for local and hosted providers and also allows custom OpenAI-compatible endpoints.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        {providers.map((provider) => (
+          <span class="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-tn-subtext">{provider}</span>
+        ))}
+      </div>
+      <div class="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 text-left">
+        <p class="mb-2 text-sm font-semibold text-tn-text">Recommended provider routing</p>
+        <p class="text-sm leading-relaxed text-tn-subtext">
+          `coren-proxi` can route each AI service to a different provider. A practical setup is `assistant -> deepseek` and `suggestions`, `inline`, `commit`, or `review` -> `ollama` with `gemma4:latest`, so high-frequency local flows stay cheap.
+        </p>
+        <pre class="mt-4 overflow-x-auto rounded-xl border border-white/[0.08] bg-tn-night/70 p-4 text-xs font-mono"><code><span class="text-tn-green">corend ia-service use assistant deepseek</span>
+<span class="text-tn-green">corend ia-service use suggestions ollama</span>
+<span class="text-tn-green">corend ia-service use inline ollama</span>
+<span class="text-tn-green">corend ia-service use commit ollama</span>
+<span class="text-tn-green">corend ia-service use review ollama</span></code></pre>
+      </div>
+      <div class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href={`${import.meta.env.BASE_URL}docs`} class="btn-primary">
+          <Icon name="lucide:book-open" class="h-4 w-4" />
+          Open documentation
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-20 border-t border-white/[0.06]">
+    <div class="mx-auto max-w-2xl text-center reveal">
+      <p class="mb-3 text-xs uppercase tracking-[0.2em] text-coren-accent">Beta access</p>
+      <h2 class="mb-4 text-2xl font-bold text-tn-text">Want to try coren?</h2>
+      <p class="mb-8 leading-relaxed text-tn-subtext">
+        Beta licenses are distributed manually during this early phase. Send an email and we'll get you set up with a license key.
+      </p>
+      <a
+        href="mailto:tapiaw38@gmail.com?subject=coren beta license request"
+        class="btn-primary"
+      >
+        <Icon name="lucide:mail" class="h-4 w-4" />
+        Request license
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    }),
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+</script>

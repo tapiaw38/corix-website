@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const homeHref = import.meta.env.BASE_URL;
+const productLinks = [
+  [`${homeHref}#features`, 'Features'],
+  [`${homeHref}#modes`, 'Modes'],
+  [`${homeHref}#install`, 'Install'],
+  [`${homeHref}#pricing`, 'Pricing'],
+];
+
+const resourceLinks = [
+  ['/docs', 'Documentation'],
+  ['#', 'Changelog'],
+  ['#', 'Roadmap'],
+  ['#', 'Support'],
+];
+
+const socialLinks = [
+  ['#', 'lucide:twitter', 'X'],
+  ['#', 'lucide:github', 'GitHub'],
+  ['#', 'lucide:message-circle', 'Discord'],
+  ['#', 'lucide:youtube', 'YouTube'],
+];
+---
+
+<footer class="relative overflow-hidden border-t border-white/[0.06] px-6 py-16">
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-coren-accent/40 to-transparent"></div>
+  <div class="pointer-events-none absolute left-[-6rem] bottom-[-8rem] h-64 w-64 rounded-full bg-coren-accent/[0.06] blur-3xl"></div>
+
+  <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.3fr_1fr_1fr]">
+    <div class="max-w-md">
+      <div class="mb-4 flex items-center gap-3">
+        <img src={`${import.meta.env.BASE_URL}coral-icon.png`} alt="coren" class="h-8 w-8 object-contain" />
+        <span class="text-xl font-bold text-coren-accent">coren</span>
+      </div>
+      <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
+        A terminal-first workflow with a local proxy, operator CLI, workspace-aware context, and room for private company models.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a href={`${homeHref}#install`} class="btn-primary">
+          <Icon name="lucide:download" class="h-4 w-4" />
+          Install
+        </a>
+        <a href={`${import.meta.env.BASE_URL}docs`} class="btn-secondary">
+          <Icon name="lucide:book-open" class="h-4 w-4" />
+          Docs
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <p class="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-tn-muted">Shortcuts</p>
+      <div class="flex flex-col gap-3 text-sm">
+        {productLinks.map(([href, label]) => (
+          <a href={href} class="text-tn-subtext transition-colors hover:text-tn-text">{label}</a>
+        ))}
+      </div>
+    </div>
+
+    <div>
+      <p class="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-tn-muted">Resources</p>
+      <div class="mb-6 flex flex-col gap-3 text-sm">
+        {resourceLinks.map(([href, label]) => (
+          <a href={href} class="text-tn-subtext transition-colors hover:text-tn-text">{label}</a>
+        ))}
+      </div>
+
+      <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-tn-muted">Social</p>
+      <div class="flex flex-wrap gap-3">
+        {socialLinks.map(([href, icon, label]) => (
+          <a
+            href={href}
+            aria-label={label}
+            class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.03] text-tn-subtext transition-all duration-200 hover:border-coren-accent/30 hover:bg-white/[0.06] hover:text-tn-text"
+          >
+            <Icon name={icon} class="h-4 w-4" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto mt-12 flex max-w-6xl flex-col gap-3 border-t border-white/[0.06] pt-6 text-sm text-tn-muted md:flex-row md:items-center md:justify-between">
+    <p>Coren. Terminal UI, local proxy, and premium support path.</p>
+    <p>Social links are placeholders for now.</p>
+  </div>
+</footer>

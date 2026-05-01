@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.env
+/scripts
+release-artifacts/
+scripts/__pycache__/
