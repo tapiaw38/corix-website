@@ -63,6 +63,7 @@ const corenConfig = [
   ['proxy-url', 'empty', 'Base URL for the proxy, for example `http://127.0.0.1:4000`.'],
   ['workspace', 'empty', 'Workspace path sent to the proxy as context.'],
   ['language', 'empty', 'Preferred language for generated AI content such as default pull request bodies. Falls back to the shell locale when unset.'],
+  ['editor', 'empty', 'Editor command used when opening files from overlays (e.g. `/context`). Falls back to `$VISUAL`, then `$EDITOR`, then tries `vi`, `nano`, `micro` in order.'],
   ['theme', 'catppuccin', 'Color theme: `catppuccin`, `dracula`, `rosepine`, or `tokyonight`.'],
   ['cursor-style', 'block', 'Terminal cursor shape: `block`, `underline`, or `bar`.'],
 ];
