@@ -29,7 +29,14 @@ const features = [
     color: 'text-tn-cyan',
     bg: 'bg-tn-cyan/10',
     title: 'Workspace aware',
-    desc: 'The shell integration writes `COREN_WORKSPACE` so the proxy can keep the current repo as operating context.',
+    desc: 'The shell integration writes `COREN_WORKSPACE` so the proxy keeps the current repo as context. Project memory in `.coren/context.md` is injected automatically into every AI request.',
+  },
+  {
+    icon: 'lucide:notebook-pen',
+    color: 'text-tn-purple',
+    bg: 'bg-tn-purple/10',
+    title: 'Project memory',
+    desc: 'Type `remember that ...` to save a note to `.coren/context.md`. Use `/context` to view it and `/condense` to compact it with the AI.',
   },
   {
     icon: 'lucide:database',
@@ -200,7 +207,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
         <p class="section-subtitle">A single installer drops the terminal, proxy server, and operator CLI on the machine.</p>
       </div>
 
-      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+      <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature, index) => (
           <div class={`card reveal reveal-delay-${(index % 3) + 1}`}>
             <div class={`mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg ${feature.bg}`}>

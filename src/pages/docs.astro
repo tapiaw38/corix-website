@@ -36,6 +36,7 @@ const sidebar = [
     links: [
       ['modes', 'AI modes'],
       ['panel-commands', 'Panel commands'],
+      ['project-memory', 'Project memory'],
       ['shortcuts', 'Keyboard'],
       ['service', 'User service'],
     ],
@@ -459,15 +460,39 @@ cursor-style = underline</code></pre>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g review</code></td>
-                  <td class="px-4 py-3">Run <code>/g review</code> to pick a base and head branch from an interactive list, or pass <code>/g review base..head</code> directly. Staged changes are also available as a review target, and the navigator can run <code>a</code> to analyze all files sequentially for risks, regressions, and missing tests.</td>
+                  <td class="px-4 py-3">Pick a base and head branch from an interactive list, or pass <code>/g review base..head</code> directly. Staged changes are also available as a review target. Use <code>a</code> to analyze all files sequentially for risks, regressions, and missing tests.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g branch</code></td>
+                  <td class="px-4 py-3">Ask the AI to suggest a branch name based on staged changes or a description you type in the overlay.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g branch delete</code></td>
+                  <td class="px-4 py-3">Pick a local branch from an interactive list and delete it.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g pr</code></td>
+                  <td class="px-4 py-3">Pick a local base branch and preview a pull request body before creating it with your detected CLI. If the repository has a local GitHub, GitLab, or Bitbucket PR template, coren uses that template as the base body. If no template exists, coren generates a default body using the configured <code>language</code> value or the current shell locale.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g sync</code></td>
+                  <td class="px-4 py-3">Fetch and rebase the current branch against its upstream in one step.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g conflicts</code></td>
                   <td class="px-4 py-3">Open the conflict navigator for the current repository. Use <code>Enter</code> or <code>e</code> to open the selected file in your editor, <code>a</code> to ask AI for an explanation, <code>o</code> for <code>ours</code>, <code>t</code> for <code>theirs</code>, and <code>r</code> to refresh after manual edits.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">/g pr create</code></td>
-                  <td class="px-4 py-3">Pick a local base branch and preview a pull request body before creating it with your detected CLI. If the repository has a local GitHub, GitLab, or Bitbucket PR template, coren uses that template as the base body. If no template exists, coren generates a default body using the configured <code>language</code> value or the current shell locale.</td>
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g log</code></td>
+                  <td class="px-4 py-3">Browse the git log for the current repository in a scrollable overlay.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g stash</code></td>
+                  <td class="px-4 py-3">List stash entries and apply or drop one from an interactive overlay.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/g diff</code></td>
+                  <td class="px-4 py-3">Show a scrollable diff of unstaged or staged changes for the current repository.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">Ctrl+P</code></td>
@@ -481,11 +506,51 @@ cursor-style = underline</code></pre>
             </table>
           </div>
 
+          <h3 id="project-memory" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Project memory</h3>
+          <p class="mb-4 leading-relaxed text-tn-subtext">
+            Each git repository can have a `.coren/context.md` file that stores project-specific notes. coren injects this file into AI conversations, inline assist hints, and command completions automatically whenever the terminal is inside that repository.
+          </p>
+          <div class="grid gap-4 md:grid-cols-3 mb-6">
+            <div class="card p-5">
+              <h4 class="mb-2 font-semibold text-tn-text">Save a note</h4>
+              <p class="text-sm leading-relaxed text-tn-subtext">Type <code>remember that ...</code> or <code>recuerda que ...</code> in the AI input. The note is saved to <code>.coren/context.md</code> with automatic deduplication.</p>
+            </div>
+            <div class="card p-5">
+              <h4 class="mb-2 font-semibold text-tn-text">/context</h4>
+              <p class="text-sm leading-relaxed text-tn-subtext">Open a full-panel overlay to scroll the current context file. Press <code>e</code> to edit it in your editor and <code>Esc</code> to close.</p>
+            </div>
+            <div class="card p-5">
+              <h4 class="mb-2 font-semibold text-tn-text">/condense</h4>
+              <p class="text-sm leading-relaxed text-tn-subtext">Send the context file to the AI to remove duplicates and compact it, then persist the result back to disk. Also runs automatically when the proxy compacts a long conversation.</p>
+            </div>
+          </div>
+          <div class="card mb-6 p-5">
+            <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-yellow">File location</p>
+            <p class="mb-3 text-sm leading-relaxed text-tn-subtext">
+              Context is stored per-project in <code>.coren/context.md</code> at the git root. The <code>.coren/</code> directory is created automatically on first save. Add it to <code>.gitignore</code> if you want to keep it local.
+            </p>
+            <pre class="overflow-x-auto rounded-xl border border-white/[0.08] bg-tn-night/70 p-4 text-sm font-mono"><code><span class="text-tn-muted"># example .coren/context.md</span>
+<span class="text-tn-green"># Project Context</span>
+
+<span class="text-tn-muted"><!-- mem:1a2b3c4d --></span>
+<span class="text-tn-text">**[General — 2025-05-01]** The API uses JWT auth, tokens expire in 15 minutes.</span>
+
+<span class="text-tn-muted"><!-- mem:5e6f7a8b --></span>
+<span class="text-tn-text">**[Comandos — 2025-05-02]** make dev starts the local stack on port 8080.</span></code></pre>
+          </div>
+          <p class="mb-10 text-sm leading-relaxed text-tn-subtext">
+            Notes are auto-categorized as <code>Variables</code>, <code>Comandos</code>, <code>Git</code>, or <code>General</code> based on content patterns. Duplicate detection uses keyword overlap — entries with ≥ 45 % shared keywords are discarded silently.
+          </p>
+
           <h3 id="shortcuts" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Keyboard</h3>
           <div class="shortcut-table mb-10">
             <div class="shortcut-row">
               <kbd class="key">Ctrl</kbd><span class="key-sep">+</span><kbd class="key">O</kbd>
-              <span class="text-tn-subtext">Toggle the AI panel.</span>
+              <span class="text-tn-subtext">Open or close the AI panel.</span>
+            </div>
+            <div class="shortcut-row">
+              <kbd class="key">Ctrl</kbd><span class="key-sep">+</span><kbd class="key">G</kbd>
+              <span class="text-tn-subtext">Toggle focus between the AI input and the terminal (only when the panel is open).</span>
             </div>
             <div class="shortcut-row">
               <kbd class="key">Ctrl</kbd><span class="key-sep">+</span><kbd class="key">P</kbd>
