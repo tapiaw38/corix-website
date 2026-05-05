@@ -407,7 +407,7 @@ cursor-style = underline</code></pre>
           </div>
 
           <h3 id="modes" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">AI modes</h3>
-          <div class="grid gap-4 md:grid-cols-2 mb-10">
+          <div class="grid gap-4 md:grid-cols-2 mb-6">
             <div class="card p-5">
               <h4 class="mb-2 font-semibold text-tn-text">Default</h4>
               <p class="text-sm leading-relaxed text-tn-subtext">General chat mode inside the panel.</p>
@@ -424,6 +424,12 @@ cursor-style = underline</code></pre>
               <h4 class="mb-2 font-semibold text-tn-text">Debug</h4>
               <p class="text-sm leading-relaxed text-tn-subtext">Only reacts on outputs that look like a failure path.</p>
             </div>
+          </div>
+          <div class="card mb-10 p-5">
+            <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-yellow">Busy terminal detection</p>
+            <p class="text-sm leading-relaxed text-tn-subtext">
+              In Execute and Debug modes, if the active terminal has a foreground process running (e.g. a dev server), coren automatically routes the AI command to another idle pane instead of blocking. If no idle pane exists, a new split is opened — vertical when the pane is wider than tall, horizontal otherwise. Focus stays on the busy pane so you keep watching the server logs.
+            </p>
           </div>
 
           <h3 id="panel-commands" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Panel commands</h3>
@@ -572,6 +578,10 @@ cursor-style = underline</code></pre>
             <div class="shortcut-row">
               <kbd class="key">Alt</kbd><span class="key-sep">+</span><kbd class="key">←</kbd>/<kbd class="key">→</kbd>/<kbd class="key">↑</kbd>/<kbd class="key">↓</kbd>
               <span class="text-tn-subtext">Move the AI panel around the terminal.</span>
+            </div>
+            <div class="shortcut-row">
+              <kbd class="key">Alt</kbd><span class="key-sep">+</span><kbd class="key">=</kbd>/<kbd class="key">-</kbd>
+              <span class="text-tn-subtext">Grow or shrink the AI panel. Size is saved to state and restored on next launch. Capped at 75% of the terminal dimension.</span>
             </div>
           </div>
           <div class="card mb-10 p-5">
