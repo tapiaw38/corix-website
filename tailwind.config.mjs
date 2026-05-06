@@ -5,9 +5,9 @@ export default {
     extend: {
       colors: {
         tn: {
-          bg:       "#1a1b26",
-          night:    "#16161e",
-          storm:    "#24283b",
+          bg:       "#050505",
+          night:    "#020202",
+          storm:    "#0c0c0e",
           overlay:  "#414868",
           comment:  "#565f89",
           muted:    "#737aa2",
@@ -24,8 +24,8 @@ export default {
         coren: {
           accent:  "#7aa2f7",
           dim:     "#414868",
-          bg:      "#1a1b26",
-          surface: "#24283b",
+          bg:      "#050505",
+          surface: "#0c0c0e",
         },
       },
       fontFamily: {
