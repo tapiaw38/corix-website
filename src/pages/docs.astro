@@ -18,7 +18,6 @@ const sidebar = [
     links: [
       ['install-coren', 'Install binaries'],
       ['bootstrap-proxy', 'Bootstrap proxy'],
-      ['auth-license', 'Activate beta license'],
       ['run-stack', 'Run the stack'],
     ],
   },
@@ -207,25 +206,6 @@ const providers = [
             <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-green">corend init</span></code></pre>
           </div>
 
-          <h3 id="auth-license" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Activate beta license</h3>
-          <p class="mb-4 leading-relaxed text-tn-subtext">
-            During the beta, licenses are distributed as signed API keys. Once you receive your key, activate it with:
-          </p>
-          <div class="terminal-window mb-4">
-            <div class="terminal-chrome">
-              <span class="h-2.5 w-2.5 rounded-full bg-tn-red/80"></span>
-              <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/80"></span>
-              <span class="h-2.5 w-2.5 rounded-full bg-tn-green/80"></span>
-              <span class="ml-auto text-xs text-tn-muted">auth</span>
-            </div>
-            <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-green">corend auth</span>
-<span class="text-tn-muted">→ select api-key</span>
-<span class="text-tn-muted">→ paste your license key</span></code></pre>
-          </div>
-          <p class="mb-8 text-sm leading-relaxed text-tn-subtext">
-            The key is stored locally and verified against the system clock — no network call needed. To request a beta license, <a href="mailto:tapiaw38@gmail.com?subject=coren beta license request" class="text-coren-accent hover:underline">send us an email</a>.
-          </p>
-
           <h3 id="run-stack" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Run the stack</h3>
           <p class="mb-4 leading-relaxed text-tn-subtext">
             Start MongoDB, install the proxy as a user service, then open the TUI with `coren`.
@@ -393,6 +373,21 @@ cursor-style = underline</code></pre>
 <span class="text-tn-green">  --base-url https://my-llm-host/v1 \</span>
 <span class="text-tn-green">  --model my-model-name \</span>
 <span class="text-tn-green">  --api-key sk-xxxxxxxxxxxxxxxx</span></code></pre>
+          </div>
+
+          <p class="mb-3 text-sm font-semibold text-tn-text">License status</p>
+          <p class="mb-4 text-sm leading-relaxed text-tn-subtext">
+            In the AI panel header you will see `plan: free`, `plan: pro`, or `plan: team`. Use `/u status` to print the current effective license state inside the AI panel.
+          </p>
+          <div class="terminal-window mb-10">
+            <div class="terminal-chrome">
+              <span class="h-2.5 w-2.5 rounded-full bg-tn-red/80"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/80"></span>
+              <span class="h-2.5 w-2.5 rounded-full bg-tn-green/80"></span>
+              <span class="ml-auto text-xs text-tn-muted">license status</span>
+            </div>
+            <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-muted"># print the current effective license state in the AI panel</span>
+<span class="text-tn-green">/u status</span></code></pre>
           </div>
         </section>
 

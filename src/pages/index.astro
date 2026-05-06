@@ -338,11 +338,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
             <span class="ml-3 text-xs font-bold text-tn-comment">Step 2</span>
           </div>
           <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># bootstrap MongoDB and provider setup</span>
-<span class="text-tn-green">corend init</span>
-
-<span class="text-tn-comment"># activate your beta license (beta uses api-key)</span>
-<span class="text-tn-green">corend auth</span>
-<span class="text-tn-comment">→ select api-key → paste your license key</span></code></pre>
+<span class="text-tn-green">corend init</span></code></pre>
         </div>
 
         <div class="terminal-window reveal reveal-delay-3">
@@ -394,7 +390,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
           <h3 class="mb-2 text-2xl font-bold text-tn-text">Coren</h3>
           <p class="mb-6 text-4xl font-bold text-tn-subtext">Core access</p>
           <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
-            The base product stays simple: install the binaries, run `corend init`, authenticate with `corend auth login`, start `coren-proxi`, and open `coren`.
+            The base product stays simple: install the binaries, run `corend init`, start `coren-proxi`, and open `coren`.
           </p>
           <div class="space-y-3 text-sm text-tn-subtext">
             <p>Terminal UI, local proxy, and operator CLI</p>
@@ -413,7 +409,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
           <div class="space-y-3 text-sm text-tn-subtext">
             <p>`2 USD` Personal: premium features for individuals</p>
             <p>`5 USD` Pro: priority features, earlier releases, and faster fixes</p>
-            <p>`20 USD` Enterprise: team support, compatibility with private company models, dedicated deployments by the Coren team, company-owned model infrastructure, and stronger privacy options</p>
+            <p>`20 USD` Team: team support, compatibility with private company models, dedicated deployments by the Coren team, company-owned model infrastructure, and stronger privacy options</p>
           </div>
         </div>
       </div>
@@ -484,28 +480,22 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
 <span class="text-tn-green">corend ia-service use commit ollama</span>
 <span class="text-tn-green">corend ia-service use review ollama</span></code></pre>
       </div>
-      <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <a href={`${import.meta.env.BASE_URL}docs`} class="btn-primary">
-          <Icon name="lucide:book-open" class="h-4 w-4" />
-          Open documentation
-        </a>
-      </div>
     </div>
   </section>
 
   <section class="px-6 py-20 border-t border-white/[0.06]">
     <div class="mx-auto max-w-2xl text-center reveal">
-      <p class="mb-3 text-xs uppercase tracking-[0.2em] text-coren-accent">Beta access</p>
+      <p class="mb-3 text-xs uppercase tracking-[0.2em] text-coren-accent">Early access</p>
       <h2 class="mb-4 text-2xl font-bold text-tn-text">Want to try coren?</h2>
       <p class="mb-8 leading-relaxed text-tn-subtext">
-        Beta licenses are distributed manually during this early phase. Send an email and we'll get you set up with a license key.
+        Install the binaries, run `corend init`, and you're up.
       </p>
       <a
-        href="mailto:tapiaw38@gmail.com?subject=coren beta license request"
+        href={`${import.meta.env.BASE_URL}docs`}
         class="btn-primary"
       >
-        <Icon name="lucide:mail" class="h-4 w-4" />
-        Request license
+        <Icon name="lucide:book-open" class="h-4 w-4" />
+        View setup guide
       </a>
     </div>
   </section>
