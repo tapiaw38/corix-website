@@ -36,7 +36,7 @@ const features = [
     color: 'text-tn-purple',
     bg: 'bg-tn-purple/10',
     title: 'Project memory',
-    desc: 'Type `remember that ...` to save a note to `.coren/context.md`. Use `/context` to view it and `/condense` to compact it with the AI.',
+    desc: 'Type `remember that ...` to save a note to `.coren/context.md`. Use `/p context` to view it and `/p condense` to compact it with the AI.',
   },
   {
     icon: 'lucide:database',
@@ -64,7 +64,7 @@ const modes = [
     border: 'border-tn-green/20',
     name: 'Watch',
     tag: 'Observe output',
-    desc: 'Captures command output after it settles and pushes that context to the AI automatically.',
+    desc: 'Detects when a command finishes and shows a hint in the AI input. Press Ctrl+E to ask for an explanation — nothing streams automatically.',
   },
   {
     icon: '⚡',
@@ -73,7 +73,7 @@ const modes = [
     border: 'border-coren-accent/20',
     name: 'Execute',
     tag: 'Suggest next commands',
-    desc: 'Turns model suggestions into selectable command chips that you can confirm before running.',
+    desc: 'Press Ctrl+E after a command, optionally set a goal for that run, and pick from the suggested next commands to execute.',
   },
   {
     icon: '🔧',
@@ -82,7 +82,7 @@ const modes = [
     border: 'border-tn-orange/20',
     name: 'Debug',
     tag: 'Trigger on failure',
-    desc: 'Only reacts when the terminal output looks like an error path and proposes a fix.',
+    desc: 'Monitors output for errors and failure signals. When something worth investigating is detected, press Ctrl+E to get a diagnosis and fix inside the conversation.',
   },
 ];
 
