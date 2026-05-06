@@ -434,33 +434,17 @@ cursor-style = underline</code></pre>
 
           <h3 id="panel-commands" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Panel commands</h3>
           <p class="mb-4 leading-relaxed text-tn-subtext">
-            Type a slash command in the AI input to trigger panel actions without leaving the keyboard. Commands show an interactive overlay as you type.
+            Type a slash command in the AI input to trigger panel actions without leaving the keyboard. Commands are organized by namespace and show an interactive overlay as you type.
           </p>
-          <div class="overflow-x-auto mb-10">
+
+          <p class="mb-3 text-sm font-semibold text-tn-text">/g — git</p>
+          <div class="overflow-x-auto mb-6">
             <table class="w-full text-sm">
-              <thead>
-                <tr class="border-b border-white/[0.08]">
-                  <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
-                  <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
-                </tr>
-              </thead>
+              <thead><tr class="border-b border-white/[0.08]">
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
+              </tr></thead>
               <tbody class="text-tn-subtext">
-                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">/new</code></td>
-                  <td class="px-4 py-3">Create a new conversation and clear the panel history.</td>
-                </tr>
-                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">/history</code></td>
-                  <td class="px-4 py-3">Browse and resume recent conversations from the panel.</td>
-                </tr>
-                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">/mode</code></td>
-                  <td class="px-4 py-3">Switch the active AI mode: default, watch, execute, or debug.</td>
-                </tr>
-                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">/panel</code></td>
-                  <td class="px-4 py-3">Move the AI panel: bottom, top, left, or right.</td>
-                </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g commit</code></td>
                   <td class="px-4 py-3">Select files to stage or discard, then let the AI generate commit suggestions and a push follow-up.</td>
@@ -479,7 +463,7 @@ cursor-style = underline</code></pre>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g pr</code></td>
-                  <td class="px-4 py-3">Pick a local base branch and preview a pull request body before creating it with your detected CLI. If the repository has a local GitHub, GitLab, or Bitbucket PR template, coren uses that template as the base body. If no template exists, coren generates a default body using the configured <code>language</code> value or the current shell locale.</td>
+                  <td class="px-4 py-3">Pick a local base branch and preview a pull request body before creating it with your detected CLI. Uses a local PR template if one exists, otherwise generates a body using the configured <code>language</code> or the current shell locale.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g sync</code></td>
@@ -487,27 +471,111 @@ cursor-style = underline</code></pre>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g conflicts</code></td>
-                  <td class="px-4 py-3">Open the conflict navigator for the current repository. Use <code>Enter</code> or <code>e</code> to open the selected file in your editor, <code>a</code> to ask AI for an explanation, <code>o</code> for <code>ours</code>, <code>t</code> for <code>theirs</code>, and <code>r</code> to refresh after manual edits.</td>
+                  <td class="px-4 py-3">Open the conflict navigator. Use <code>Enter</code> or <code>e</code> to open a file in your editor, <code>a</code> to ask AI for an explanation, <code>o</code> for ours, <code>t</code> for theirs, and <code>r</code> to refresh.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g log</code></td>
-                  <td class="px-4 py-3">Browse the git log for the current repository in a scrollable overlay.</td>
+                  <td class="px-4 py-3">Browse the git log in a scrollable overlay.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g stash</code></td>
                   <td class="px-4 py-3">List stash entries and apply or drop one from an interactive overlay.</td>
                 </tr>
-                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
                   <td class="px-4 py-3"><code class="text-coren-accent">/g diff</code></td>
-                  <td class="px-4 py-3">Show a scrollable diff of unstaged or staged changes for the current repository.</td>
+                  <td class="px-4 py-3">Show a scrollable diff of unstaged or staged changes.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-3 text-sm font-semibold text-tn-text">/c — conversation</p>
+          <div class="overflow-x-auto mb-6">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-white/[0.08]">
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
+              </tr></thead>
+              <tbody class="text-tn-subtext">
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/c new</code></td>
+                  <td class="px-4 py-3">Create a new conversation and clear the panel history.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">Ctrl+P</code></td>
-                  <td class="px-4 py-3">Open the command palette. It groups core actions like review, commit, branch sync, shell history, bookmarks, AI mode switches, panel controls, and conversation navigation into one searchable overlay.</td>
+                  <td class="px-4 py-3"><code class="text-coren-accent">/c history</code></td>
+                  <td class="px-4 py-3">Browse and resume recent conversations from the panel.</td>
                 </tr>
                 <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
-                  <td class="px-4 py-3"><code class="text-coren-accent">/reload</code></td>
+                  <td class="px-4 py-3"><code class="text-coren-accent">/c bookmarks</code></td>
+                  <td class="px-4 py-3">Open saved commands. Use <code>Ctrl+B</code> to bookmark a command from the terminal.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-3 text-sm font-semibold text-tn-text">/p — project memory</p>
+          <div class="overflow-x-auto mb-6">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-white/[0.08]">
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
+              </tr></thead>
+              <tbody class="text-tn-subtext">
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/p context</code></td>
+                  <td class="px-4 py-3">Open a full-panel overlay to scroll the project context file. Press <code>e</code> to edit it in your editor.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/p condense</code></td>
+                  <td class="px-4 py-3">Send the context file to the AI to remove duplicates and compact it, then persist the result to disk.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-3 text-sm font-semibold text-tn-text">/t — terminal</p>
+          <div class="overflow-x-auto mb-6">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-white/[0.08]">
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
+              </tr></thead>
+              <tbody class="text-tn-subtext">
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/t find</code></td>
+                  <td class="px-4 py-3">Fuzzy search through shell history and paste the selected entry into the terminal.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/t sum</code></td>
+                  <td class="px-4 py-3">Summarize the last command output using the AI.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="mb-3 text-sm font-semibold text-tn-text">/u — ui</p>
+          <div class="overflow-x-auto mb-10">
+            <table class="w-full text-sm">
+              <thead><tr class="border-b border-white/[0.08]">
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">Command</th>
+                <th class="px-4 py-3 text-left font-semibold text-tn-subtext">What it does</th>
+              </tr></thead>
+              <tbody class="text-tn-subtext">
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/u mode</code></td>
+                  <td class="px-4 py-3">Switch the active AI mode: default, watch, execute, or debug.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/u panel</code></td>
+                  <td class="px-4 py-3">Move the AI panel: bottom, top, left, or right.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">/u reload</code></td>
                   <td class="px-4 py-3">Reload <code>~/.config/coren/config</code> without restarting, including theme changes.</td>
+                </tr>
+                <tr class="border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02]">
+                  <td class="px-4 py-3"><code class="text-coren-accent">Ctrl+P</code></td>
+                  <td class="px-4 py-3">Open the command palette. Groups all commands by namespace into one searchable overlay.</td>
                 </tr>
               </tbody>
             </table>
