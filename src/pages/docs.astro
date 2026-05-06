@@ -414,21 +414,35 @@ cursor-style = underline</code></pre>
             </div>
             <div class="card p-5">
               <h4 class="mb-2 font-semibold text-tn-text">Watch</h4>
-              <p class="text-sm leading-relaxed text-tn-subtext">Submits command output to the AI after output settles.</p>
+              <p class="text-sm leading-relaxed text-tn-subtext">
+                After a command finishes, a hint appears in the AI input: <code>Ctrl+E to explain the output of: &lt;cmd&gt;</code>.
+                Press <code>Ctrl+E</code> from the terminal or the AI panel to ask for an explanation. Nothing happens automatically.
+              </p>
             </div>
             <div class="card p-5">
               <h4 class="mb-2 font-semibold text-tn-text">Execute</h4>
-              <p class="text-sm leading-relaxed text-tn-subtext">Proposes follow-up commands that you can confirm before execution.</p>
+              <p class="text-sm leading-relaxed text-tn-subtext">
+                After a command finishes, a hint appears: <code>Ctrl+E to suggest next steps after: &lt;cmd&gt;</code>.
+                Press <code>Ctrl+E</code> and optionally type a goal (e.g. <em>deploy to staging</em>) or press Enter to skip.
+                coren then suggests the next commands to run using a dedicated stateless API — no conversation history involved.
+                You can also type a request directly in the AI input (e.g. <em>list docker volumes</em>) and coren will respond with runnable commands.
+              </p>
             </div>
             <div class="card p-5">
               <h4 class="mb-2 font-semibold text-tn-text">Debug</h4>
-              <p class="text-sm leading-relaxed text-tn-subtext">Only reacts on outputs that look like a failure path.</p>
+              <p class="text-sm leading-relaxed text-tn-subtext">
+                Monitors command output for errors, warnings, and failure signals. When something worth investigating is detected,
+                a hint appears: <code>Ctrl+E to explain the output of: &lt;cmd&gt;</code>. The explanation is part of the conversation,
+                so you can follow up with questions.
+              </p>
             </div>
           </div>
           <div class="card mb-10 p-5">
             <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-yellow">Busy terminal detection</p>
             <p class="text-sm leading-relaxed text-tn-subtext">
-              In Execute and Debug modes, if the active terminal has a foreground process running (e.g. a dev server), coren automatically routes the AI command to another idle pane instead of blocking. If no idle pane exists, a new split is opened — vertical when the pane is wider than tall, horizontal otherwise. Focus stays on the busy pane so you keep watching the server logs.
+              When a command suggested by Execute mode runs while the active pane has a foreground process (e.g. a dev server),
+              coren routes it to an idle pane instead of blocking. If no idle pane exists, a new split is opened —
+              vertical when the pane is wider than tall, horizontal otherwise. Focus stays on the busy pane so you keep watching the server logs.
             </p>
           </div>
 
@@ -638,6 +652,10 @@ cursor-style = underline</code></pre>
             <div class="shortcut-row">
               <kbd class="key">Esc</kbd>
               <span class="text-tn-subtext">Return to terminal focus from the AI panel.</span>
+            </div>
+            <div class="shortcut-row">
+              <kbd class="key">Ctrl</kbd><span class="key-sep">+</span><kbd class="key">E</kbd>
+              <span class="text-tn-subtext">Explain the last command output (Watch/Debug) or suggest next steps (Execute). Works from both the terminal and the AI panel without changing focus.</span>
             </div>
             <div class="shortcut-row">
               <kbd class="key">Tab</kbd>
