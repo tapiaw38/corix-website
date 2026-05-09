@@ -91,6 +91,39 @@
   }
 }
 
+kbd.key {
+  @apply inline-flex items-center justify-center rounded border border-white/[0.15]
+         bg-white/[0.06] px-2 py-0.5 font-mono text-xs font-medium text-tn-text
+         shadow-[0_1px_0_0_rgba(255,255,255,0.1)];
+  min-width: 1.75rem;
+}
+
+.key-sep {
+  @apply text-tn-muted text-xs mx-0.5;
+}
+
+.shortcut-group {
+  @apply mb-6;
+}
+
+.shortcut-group-title {
+  @apply mb-1 px-0 py-1.5 text-xs font-bold uppercase tracking-widest text-tn-muted
+         border-b border-white/[0.08];
+}
+
+.shortcut-row {
+  @apply flex items-start gap-4 border-b border-white/[0.04] py-2.5 last:border-0;
+}
+
+.shortcut-keys {
+  @apply flex shrink-0 flex-wrap items-center gap-0.5;
+  min-width: 9rem;
+}
+
+.shortcut-desc {
+  @apply text-sm leading-relaxed text-tn-subtext;
+}
+
 /* Scroll-reveal */
 .reveal {
   opacity: 0;

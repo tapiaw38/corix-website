@@ -49,7 +49,7 @@ const features = [
 
 const modes = [
   {
-    icon: '?',
+    icon: '○',
     iconColor: 'text-tn-blue',
     bg: 'bg-tn-blue/10',
     border: 'border-tn-blue/20',
@@ -136,7 +136,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
           <span class="gradient-text">the AI local to your flow</span>
         </h1>
         <p class="mb-8 max-w-xl text-lg leading-relaxed text-tn-subtext">
-          `coren` is the terminal UI. `coren-proxi` is the local API bridge. `corend` handles setup for MongoDB, providers, shell integration, and the user service.
+          `coren` is the terminal UI. `coren-proxi` is the local proxy that routes AI requests and stores conversations. `corend` handles setup: MongoDB, providers, shell integration, and the user service — all from one command.
         </p>
         <p class="mb-8 max-w-xl text-sm leading-relaxed text-tn-comment">
           Linux is the only supported platform right now. macOS support is planned for a later release.
@@ -179,7 +179,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
             workspace: ~/Workspace/oceanstack/coren-website
           </div>
           <div class="space-y-1 p-4 text-sm font-mono">
-            <div><span class="text-tn-green">❯</span> <span class="text-tn-text">coren --host 127.0.0.1 --port 4000</span></div>
+            <div><span class="text-tn-green">❯</span> <span class="text-tn-text">coren</span></div>
             <div class="pl-2 text-tn-comment">connected to local proxy</div>
             <div class="pl-2 text-tn-comment">mode: watch</div>
             <div class="pl-2 text-tn-red">go test ./... failed in provider package</div>
@@ -305,7 +305,7 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
           <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># choose your theme</span>
 <span class="text-tn-text">theme = </span><span class="text-coren-accent">tokyonight</span>
 
-<span class="text-tn-comment"># reload inside coren with /reload</span></code></pre>
+<span class="text-tn-comment"># reload inside coren with /u reload</span></code></pre>
         </div>
       </div>
     </div>
@@ -346,14 +346,10 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
             <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
             <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
             <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
-            <span class="ml-3 text-xs font-bold text-tn-comment">Step 3</span>
+            <span class="ml-3 text-xs font-bold text-tn-comment">Step 3 — docker only</span>
           </div>
-          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># start local MongoDB</span>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># start MongoDB container (docker source only)</span>
 <span class="text-tn-green">corend db start</span>
-
-<span class="text-tn-comment"># install and start the proxy as a user service</span>
-<span class="text-tn-green">corend service install</span>
-<span class="text-tn-green">corend service start</span>
 
 <span class="text-tn-comment"># open the TUI</span>
 <span class="text-tn-green">coren</span></code></pre>
@@ -381,16 +377,16 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
     <div class="mx-auto max-w-5xl">
       <div class="mb-16 text-center reveal">
         <h2 class="section-title">Pricing</h2>
-        <p class="section-subtitle">The pricing direction should stay simple: Coren charges for support and premium features, not for basic access to the terminal itself.</p>
+        <p class="section-subtitle">Free to install and run. Paid plans add support, premium features, and team capabilities.</p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-2">
         <div class="card reveal reveal-delay-1 p-7">
-          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Current access</p>
+          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Always free</p>
           <h3 class="mb-2 text-2xl font-bold text-tn-text">Coren</h3>
-          <p class="mb-6 text-4xl font-bold text-tn-subtext">Core access</p>
+          <p class="mb-6 text-4xl font-bold text-tn-text">Free</p>
           <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
-            The base product stays simple: install the binaries, run `corend init`, start `coren-proxi`, and open `coren`.
+            Install the binaries, run `corend init`, and open `coren`. No account required.
           </p>
           <div class="space-y-3 text-sm text-tn-subtext">
             <p>Terminal UI, local proxy, and operator CLI</p>
@@ -400,16 +396,16 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
         </div>
 
         <div class="card reveal reveal-delay-2 p-7">
-          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Commercial rollout</p>
-          <h3 class="mb-2 text-2xl font-bold text-tn-text">Support and features</h3>
-          <p class="mb-6 text-4xl font-bold text-tn-subtext">From 2 USD</p>
+          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Coming soon</p>
+          <h3 class="mb-2 text-2xl font-bold text-tn-text">Paid plans</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-text">From $2<span class="text-xl text-tn-subtext"> / mo</span></p>
           <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
-            The paid side can stay focused on support quality, premium features, and team capabilities instead of charging for the core terminal workflow.
+            Focused on support quality, premium features, and team capabilities — not on gating the core terminal workflow.
           </p>
           <div class="space-y-3 text-sm text-tn-subtext">
-            <p>`2 USD` Personal: premium features for individuals</p>
-            <p>`5 USD` Pro: priority features, earlier releases, and faster fixes</p>
-            <p>`20 USD` Team: team support, compatibility with private company models, dedicated deployments by the Coren team, company-owned model infrastructure, and stronger privacy options</p>
+            <p><span class="text-tn-text font-medium">$2</span> Personal — premium features for individuals</p>
+            <p><span class="text-tn-text font-medium">$5</span> Pro — priority features, earlier releases, faster fixes</p>
+            <p><span class="text-tn-text font-medium">$20</span> Team — private company models, dedicated deployments, stronger privacy</p>
           </div>
         </div>
       </div>
