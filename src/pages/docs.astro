@@ -194,9 +194,9 @@ const providers = [
 
           <h3 id="bootstrap-proxy" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Bootstrap proxy</h3>
           <p class="mb-4 leading-relaxed text-tn-subtext">
-            `corend init` is the shortest valid bootstrap path. It prepares the local runtime, starts or wires MongoDB, and guides provider setup. You should not need a manual `.env` for the normal binary install path.
+            `corend init` is the shortest valid bootstrap path. The wizard walks through every step interactively.
           </p>
-          <div class="terminal-window mb-8">
+          <div class="terminal-window mb-6">
             <div class="terminal-chrome">
               <span class="h-2.5 w-2.5 rounded-full bg-tn-red/80"></span>
               <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/80"></span>
@@ -205,28 +205,37 @@ const providers = [
             </div>
             <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-green">corend init</span></code></pre>
           </div>
+          <p class="mb-3 text-sm leading-relaxed text-tn-subtext">The wizard asks:</p>
+          <ul class="mb-8 space-y-2 text-sm text-tn-subtext">
+            <li class="flex items-start gap-2"><span class="mt-0.5 text-coren-accent">›</span> <strong class="text-tn-text">MongoDB source</strong> — <code>local</code> (MongoDB already installed on your machine, port 27017) or <code>docker</code> (managed container, default port 27027). The chosen port is saved to <code>~/.config/coren-proxi/.env</code>.</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5 text-coren-accent">›</span> <strong class="text-tn-text">Shell integration</strong> — updates your rc file and sets <code>COREN_WORKSPACE</code>.</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5 text-coren-accent">›</span> <strong class="text-tn-text">Provider setup</strong> — only shown for the <code>local</code> MongoDB path, where the database is assumed to be already running. For <code>docker</code>, run <code>corend db start</code> first, then <code>corend provider add</code>.</li>
+            <li class="flex items-start gap-2"><span class="mt-0.5 text-coren-accent">›</span> <strong class="text-tn-text">User service</strong> — installs and starts <code>coren-proxi</code> as a systemd user unit.</li>
+          </ul>
 
           <h3 id="run-stack" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Run the stack</h3>
           <p class="mb-4 leading-relaxed text-tn-subtext">
-            Start MongoDB, install the proxy as a user service, then open the TUI with `coren`.
+            If you chose <strong>docker</strong> during init, start MongoDB, configure a provider, then open the TUI.
           </p>
-          <div class="terminal-window">
+          <div class="terminal-window mb-6">
             <div class="terminal-chrome">
               <span class="h-2.5 w-2.5 rounded-full bg-tn-red/80"></span>
               <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/80"></span>
               <span class="h-2.5 w-2.5 rounded-full bg-tn-green/80"></span>
-              <span class="ml-auto text-xs text-tn-muted">run</span>
+              <span class="ml-auto text-xs text-tn-muted">run (docker)</span>
             </div>
-            <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-muted"># start local MongoDB</span>
+            <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-muted"># start the MongoDB container</span>
 <span class="text-tn-green">corend db start</span>
 
-<span class="text-tn-muted"># install and start the proxy as a user service</span>
-<span class="text-tn-green">corend service install</span>
-<span class="text-tn-green">corend service start</span>
+<span class="text-tn-muted"># configure an AI provider</span>
+<span class="text-tn-green">corend provider add</span>
 
 <span class="text-tn-muted"># open the TUI</span>
 <span class="text-tn-green">coren</span></code></pre>
           </div>
+          <p class="mb-4 leading-relaxed text-tn-subtext">
+            If you chose <strong>local</strong>, MongoDB is already managed by you. The proxy service starts automatically after init, so you can go straight to `coren`.
+          </p>
         </section>
 
         <hr class="mb-20 border-white/[0.06]" />
@@ -712,7 +721,7 @@ cursor-style = underline</code></pre>
           </div>
 
           <h3 id="mongo" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">MongoDB</h3>
-          <div class="terminal-window mb-8">
+          <div class="terminal-window mb-6">
             <div class="terminal-chrome">
               <span class="h-2.5 w-2.5 rounded-full bg-tn-red/80"></span>
               <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/80"></span>
@@ -721,6 +730,19 @@ cursor-style = underline</code></pre>
             </div>
             <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-green">corend db status</span>
 <span class="text-tn-green">corend db logs -f</span></code></pre>
+          </div>
+          <div class="card mb-8 p-5">
+            <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-yellow">Changing the MongoDB port</p>
+            <p class="mb-3 text-sm leading-relaxed text-tn-subtext">
+              The port chosen during `corend init` is stored in <code>~/.config/coren-proxi/.env</code> as <code>DB_PORT</code> and <code>DATABASE_URI</code>. To change it, edit that file and restart both the container and the proxy service.
+            </p>
+            <pre class="overflow-x-auto rounded-xl border border-white/[0.08] bg-tn-night/70 p-4 text-sm font-mono"><code><span class="text-tn-muted"># edit the port in the env file</span>
+<span class="text-tn-green">$EDITOR ~/.config/coren-proxi/.env</span>
+
+<span class="text-tn-muted"># recreate the container and restart the proxy</span>
+<span class="text-tn-green">corend db stop</span>
+<span class="text-tn-green">corend db start</span>
+<span class="text-tn-green">systemctl --user restart coren-proxi</span></code></pre>
           </div>
 
           <h3 id="workspace" class="mb-4 scroll-mt-24 text-xl font-semibold text-tn-text">Workspace export</h3>
