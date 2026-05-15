@@ -4,46 +4,46 @@ import { Icon } from 'astro-icon/components';
 
 const features = [
   {
-    icon: 'lucide:square-terminal',
+    icon: 'lucide:shield',
     color: 'text-coren-accent',
     bg: 'bg-coren-accent/10',
-    title: 'Terminal first',
-    desc: 'A Go terminal interface with scrollback, mouse support, live shell session rendering, and an AI panel inside the same screen.',
+    title: 'Local-First by Design',
+    desc: 'Every AI request routes through a proxy running on your machine. No logs sent to third parties. No API keys leaving your environment. Works fully offline with Ollama.',
   },
   {
-    icon: 'lucide:wand-sparkles',
+    icon: 'lucide:square-terminal',
     color: 'text-tn-yellow',
     bg: 'bg-tn-yellow/10',
-    title: 'Inline assist',
-    desc: 'Shows ghost-text suggestions while you type and can react to command output without moving you into a browser.',
-  },
-  {
-    icon: 'lucide:git-pull-request-arrow',
-    color: 'text-tn-orange',
-    bg: 'bg-tn-orange/10',
-    title: 'Review navigator',
-    desc: 'Review staged changes or branch diffs file by file, resolve merge conflicts, ask AI for risks and missing tests, and keep the whole flow inside the terminal.',
+    title: 'Terminal-Native',
+    desc: 'Not a sidebar. Not a browser extension. Coren runs inside your terminal session with scroll, mouse support, and a live AI panel that never interrupts your shell.',
   },
   {
     icon: 'lucide:folder-search',
     color: 'text-tn-cyan',
     bg: 'bg-tn-cyan/10',
-    title: 'Workspace aware',
-    desc: 'The shell integration writes `COREN_WORKSPACE` so the proxy keeps the current repo as context. Project memory in `.coren/context.md` is injected automatically into every AI request.',
+    title: 'Workspace Awareness',
+    desc: 'Drop a context file in your project root. Coren loads it automatically into every session — so the AI knows your stack, conventions, and current goals without re-explaining.',
   },
   {
-    icon: 'lucide:notebook-pen',
+    icon: 'lucide:layers',
     color: 'text-tn-purple',
     bg: 'bg-tn-purple/10',
-    title: 'Project memory',
-    desc: 'Type `remember that ...` to save a note to `.coren/context.md`. Use `/p context` to view it and `/p condense` to compact it with the AI.',
+    title: 'Four AI Modes',
+    desc: 'Switch between Default, Watch, Execute, and Debug depending on what you\'re doing. Each mode adapts to your workflow — from passive observation to active command execution.',
   },
   {
-    icon: 'lucide:database',
+    icon: 'lucide:wand-sparkles',
+    color: 'text-tn-orange',
+    bg: 'bg-tn-orange/10',
+    title: 'Inline Assist',
+    desc: 'Ghost-text completions appear as you type. Press Tab to accept. React to command output instantly. No copy-paste. No context switching.',
+  },
+  {
+    icon: 'lucide:git-pull-request-arrow',
     color: 'text-tn-green',
     bg: 'bg-tn-green/10',
-    title: 'Local proxy',
-    desc: '`coren-proxi` runs locally, stores providers and conversations in MongoDB, and exposes the API that coren consumes.',
+    title: 'Code Review in the Terminal',
+    desc: 'Review staged diffs file-by-file without leaving your shell. AI flags risky changes, explains context, and helps you resolve conflicts before they hit production.',
   },
 ];
 
@@ -55,7 +55,7 @@ const modes = [
     border: 'border-tn-blue/20',
     name: 'Default',
     tag: 'Ask directly',
-    desc: 'Open the panel and chat with the active provider in the current workspace.',
+    desc: 'Open the panel and chat with the active provider in the current workspace. Full conversation context on every request.',
   },
   {
     icon: '◉',
@@ -64,7 +64,7 @@ const modes = [
     border: 'border-tn-green/20',
     name: 'Watch',
     tag: 'Observe output',
-    desc: 'Detects when a command finishes and shows a hint in the AI input. Press Ctrl+E to ask for an explanation — nothing streams automatically.',
+    desc: 'Detects when a command finishes and waits for your signal. Press Ctrl+E to explain any output — nothing streams automatically.',
   },
   {
     icon: '⚡',
@@ -73,7 +73,7 @@ const modes = [
     border: 'border-coren-accent/20',
     name: 'Execute',
     tag: 'Suggest next commands',
-    desc: 'Press Ctrl+E after a command, optionally set a goal for that run, and pick from the suggested next commands to execute.',
+    desc: 'Set a goal for the current run and pick from AI-suggested commands. Turn a vague objective into a concrete terminal sequence.',
   },
   {
     icon: '🔧',
@@ -82,7 +82,7 @@ const modes = [
     border: 'border-tn-orange/20',
     name: 'Debug',
     tag: 'Trigger on failure',
-    desc: 'Monitors output for errors and failure signals. When something worth investigating is detected, press Ctrl+E to get a diagnosis and fix inside the conversation.',
+    desc: 'Monitors output for errors and failure signals. Press Ctrl+E for instant diagnosis and a fix — no copy-paste, no switching windows.',
   },
 ];
 
@@ -122,77 +122,93 @@ const themes = [
 ];
 
 const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq', 'custom'];
+
+const comparisonRows = [
+  { feature: 'Runs locally',                 coren: '✓', cloud: '✗' },
+  { feature: 'Code stays on device',         coren: '✓', cloud: '✗' },
+  { feature: 'Works with Ollama',            coren: '✓', cloud: '✗' },
+  { feature: 'Per-project workspace context',coren: '✓', cloud: '✗' },
+  { feature: 'No vendor lock-in',            coren: '✓', cloud: '✗' },
+  { feature: 'Terminal-native shell',        coren: '✓', cloud: '✗' },
+  { feature: 'Air-gap compatible',           coren: '✓', cloud: '✗' },
+  { feature: '7+ provider presets',          coren: '✓', cloud: 'Limited' },
+  { feature: 'Free core tier',               coren: '✓', cloud: 'Partial' },
+  { feature: 'Starting price',               coren: 'Free', cloud: '$15–$30 / mo' },
+];
+
+const trustPills = [
+  'Local-first',
+  'Ollama compatible',
+  'OpenAI-compatible API',
+  'Linux-native',
+  'Free core forever',
+  '7+ provider presets',
+];
 ---
 
-<Layout>
+<Layout
+  title="Coren — Local AI Terminal for Developers"
+  description="Coren is a local-first AI terminal. Run AI models on your machine, keep workspace context per project, and ship faster — without sending a single line of code to the cloud."
+>
+  <!-- ─── HERO ─────────────────────────────────────────────────── -->
   <section class="relative overflow-hidden px-6">
-    <div class="absolute top-0 left-1/4 h-[520px] w-[520px] rounded-full bg-coren-accent/[0.06] blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-0 right-1/4 h-[420px] w-[420px] rounded-full bg-tn-cyan/[0.04] blur-3xl pointer-events-none"></div>
+    <div class="absolute top-0 left-1/4 h-[560px] w-[560px] rounded-full bg-coren-accent/[0.07] blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 h-[440px] w-[440px] rounded-full bg-tn-cyan/[0.04] blur-3xl pointer-events-none"></div>
 
-    <div class="mx-auto grid max-w-6xl items-center gap-12 py-12 md:grid-cols-2 md:py-24">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 py-16 md:grid-cols-2 md:py-28">
       <div class="reveal">
+        <p class="mb-5 text-xs font-bold uppercase tracking-[0.2em] text-coren-accent">Local-first AI terminal</p>
         <h1 class="mb-6 text-4xl font-bold leading-tight tracking-tight text-tn-text sm:text-5xl md:text-6xl">
-          A terminal that keeps
-          <span class="gradient-text">the AI local to your flow</span>
+          Your code never<br />
+          <span class="gradient-text">leaves your machine.</span>
         </h1>
         <p class="mb-8 max-w-xl text-lg leading-relaxed text-tn-subtext">
-          `coren` is the terminal UI. `coren-proxi` is the local proxy that routes AI requests and stores conversations. `corend` handles setup: MongoDB, providers, shell integration, and the user service — all from one command.
-        </p>
-        <p class="mb-8 max-w-xl text-sm leading-relaxed text-tn-comment">
-          Linux is the only supported platform right now. macOS support is planned for a later release.
+          Coren brings local AI directly into your terminal workflow. Run models on your machine, keep context per project, and ship faster — without sending a single line to the cloud.
         </p>
         <div class="flex flex-wrap gap-4">
           <a href="#install" class="btn-primary">
             <Icon name="lucide:download" class="h-4 w-4" />
-            Installation
+            Install Coren — it's free
           </a>
           <a href={`${import.meta.env.BASE_URL}docs`} class="btn-secondary">
             <Icon name="lucide:book-open" class="h-4 w-4" />
-            Read docs
+            Read the docs
           </a>
         </div>
-        <div class="mt-10 grid grid-cols-3 gap-6 text-sm text-tn-comment">
-          <div>
-            <span class="block text-2xl font-bold text-tn-text">3</span>
-            binaries
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-tn-text">4</span>
-            AI modes
-          </div>
-          <div>
-            <span class="block text-2xl font-bold text-tn-text">1</span>
-            local proxy
-          </div>
-        </div>
+        <p class="mt-6 text-xs text-tn-muted">
+          Linux · Supports Ollama, DeepSeek, OpenAI, Anthropic and more · macOS coming soon
+        </p>
       </div>
 
+      <!-- Terminal demo -->
       <div class="hidden md:block reveal reveal-delay-2">
         <div class="terminal-window shadow-2xl shadow-black/50">
           <div class="terminal-chrome">
             <span class="h-3 w-3 rounded-full bg-tn-red/80"></span>
             <span class="h-3 w-3 rounded-full bg-tn-yellow/80"></span>
             <span class="h-3 w-3 rounded-full bg-tn-green/80"></span>
-            <span class="ml-auto text-xs text-tn-comment">coren + coren-proxi</span>
+            <span class="ml-auto text-xs text-tn-comment">~/projects/api-service</span>
           </div>
           <div class="border-b border-white/[0.05] bg-tn-storm/60 px-3 py-1.5 text-xs text-tn-comment">
-            workspace: ~/Workspace/oceanstack/coren-website
+            <span class="text-coren-accent">●</span> workspace loaded · mode: watch · provider: ollama
           </div>
           <div class="space-y-1 p-4 text-sm font-mono">
-            <div><span class="text-tn-green">❯</span> <span class="text-tn-text">coren</span></div>
-            <div class="pl-2 text-tn-comment">connected to local proxy</div>
-            <div class="pl-2 text-tn-comment">mode: watch</div>
-            <div class="pl-2 text-tn-red">go test ./... failed in provider package</div>
+            <div><span class="text-tn-green">❯</span> <span class="text-tn-text">make deploy</span></div>
+            <div class="pl-2 text-tn-comment">building image...</div>
+            <div class="pl-2 text-tn-red">Error: connection refused on :5432</div>
+            <div class="pl-2 text-tn-comment">exit code 1</div>
           </div>
           <div class="border-t border-white/[0.08]">
-            <div class="flex items-center justify-between border-b border-white/[0.05] px-4 py-2 text-xs text-tn-comment">
-              <span class="font-bold text-coren-accent">✦ default</span>
-              <span>/mode watch</span>
+            <div class="flex items-center justify-between border-b border-white/[0.05] px-4 py-2 text-xs">
+              <span class="font-bold text-coren-accent">✦ coren</span>
+              <span class="text-tn-comment">local · ollama · gemma4:latest</span>
             </div>
             <div class="space-y-1.5 bg-tn-night/50 p-4 text-xs font-mono">
-              <p class="text-tn-subtext">The active provider is reachable through `127.0.0.1:4000`.</p>
-              <p class="text-tn-subtext">The failing test came from the current workspace and the proxy has its conversation state in MongoDB.</p>
-              <p class="pl-2 text-tn-green">Try: go test ./... -run Provider</p>
+              <p class="text-tn-subtext">PostgreSQL isn't running. The deploy fails at the DB connection step.</p>
+              <p class="text-tn-subtext mt-2">Try:</p>
+              <p class="pl-2 text-tn-green">sudo systemctl start postgresql</p>
+              <p class="pl-2 text-tn-green">make deploy</p>
+              <p class="mt-2 text-tn-muted text-[10px]">Ctrl+E to run suggestion · Tab to accept inline</p>
             </div>
           </div>
         </div>
@@ -200,11 +216,87 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
     </div>
   </section>
 
+  <!-- ─── TRUST BAR ──────────────────────────────────────────────── -->
+  <section class="border-y border-white/[0.06] bg-tn-night/30 px-6 py-6">
+    <div class="mx-auto max-w-6xl">
+      <p class="mb-5 text-center text-xs uppercase tracking-[0.2em] text-tn-muted">
+        Built for engineers who take their environment seriously
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        {trustPills.map((pill) => (
+          <span class="rounded-full border border-white/[0.08] bg-white/[0.02] px-4 py-1.5 text-xs text-tn-subtext">
+            {pill}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PAIN → SOLUTION ────────────────────────────────────────── -->
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">
+          You shouldn't have to choose<br class="hidden sm:block" />
+          between AI and privacy.
+        </h2>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="reveal reveal-delay-1 rounded-xl border border-white/[0.07] bg-white/[0.02] p-6">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-tn-red/10">
+              <Icon name="lucide:cloud-off" class="h-4 w-4 text-tn-red" />
+            </div>
+          </div>
+          <p class="mb-3 text-sm text-tn-comment">
+            Cloud AI terminals send your code, prompts, and infra details to external servers on every request.
+          </p>
+          <div class="border-t border-white/[0.06] pt-3 flex items-start gap-2">
+            <Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />
+            <p class="text-sm text-tn-text">Coren routes every request through a local proxy. Your data never leaves your machine.</p>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-2 rounded-xl border border-white/[0.07] bg-white/[0.02] p-6">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-tn-red/10">
+              <Icon name="lucide:arrow-left-right" class="h-4 w-4 text-tn-red" />
+            </div>
+          </div>
+          <p class="mb-3 text-sm text-tn-comment">
+            Most AI tools break your flow. You copy output, switch to a browser tab, paste it in, copy the answer back.
+          </p>
+          <div class="border-t border-white/[0.06] pt-3 flex items-start gap-2">
+            <Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />
+            <p class="text-sm text-tn-text">Coren lives inside your terminal. AI panel, inline suggestions, and review — no context switching.</p>
+          </div>
+        </div>
+
+        <div class="reveal reveal-delay-3 rounded-xl border border-white/[0.07] bg-white/[0.02] p-6">
+          <div class="mb-4 flex items-center gap-3">
+            <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-tn-red/10">
+              <Icon name="lucide:help-circle" class="h-4 w-4 text-tn-red" />
+            </div>
+          </div>
+          <p class="mb-3 text-sm text-tn-comment">
+            AI tools have no idea what project you're in. You re-explain your stack on every session.
+          </p>
+          <div class="border-t border-white/[0.06] pt-3 flex items-start gap-2">
+            <Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />
+            <p class="text-sm text-tn-text">Coren is workspace-aware. Project context loads automatically into every session.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ──────────────────────────────────────────────── -->
   <section class="px-6 py-24" id="features">
     <div class="mx-auto max-w-6xl">
       <div class="mb-16 text-center reveal">
-        <h2 class="section-title">What is actually installed</h2>
-        <p class="section-subtitle">A single installer drops the terminal, proxy server, and operator CLI on the machine.</p>
+        <h2 class="section-title">Everything you need.<br class="hidden sm:block" />Nothing you don't.</h2>
+        <p class="section-subtitle">A complete AI-native terminal workflow without the cloud dependency.</p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -221,14 +313,15 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
     </div>
   </section>
 
+  <!-- ─── MODES ─────────────────────────────────────────────────── -->
   <section id="modes" class="relative overflow-hidden px-6 py-24">
     <div class="absolute inset-0 bg-tn-night/40 pointer-events-none"></div>
     <div class="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-coren-accent/[0.04] blur-3xl pointer-events-none"></div>
 
     <div class="relative mx-auto max-w-6xl">
       <div class="mb-16 text-center reveal">
-        <h2 class="section-title">Four modes in one shell</h2>
-        <p class="section-subtitle">The runtime state stores the current panel position and active mode between sessions.</p>
+        <h2 class="section-title">One terminal. Four ways to think.</h2>
+        <p class="section-subtitle">Different tasks need different levels of AI involvement. Dial in exactly how much help you want.</p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-2">
@@ -252,18 +345,144 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
     </div>
   </section>
 
-  <!-- Themes section -->
+  <!-- ─── PRIVACY ───────────────────────────────────────────────── -->
+  <section id="privacy" class="relative overflow-hidden px-6 py-28">
+    <div class="absolute inset-0 bg-tn-night/60 pointer-events-none"></div>
+    <div class="absolute left-1/2 top-1/2 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-coren-accent/[0.05] blur-3xl pointer-events-none"></div>
+
+    <div class="relative mx-auto max-w-5xl">
+      <div class="mb-12 text-center reveal">
+        <p class="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-coren-accent">Privacy</p>
+        <h2 class="section-title">
+          We built Coren because we got tired of<br class="hidden sm:block" />
+          pasting production code into browser tabs.
+        </h2>
+      </div>
+
+      <div class="mx-auto mb-12 max-w-3xl reveal reveal-delay-1">
+        <div class="rounded-2xl border border-coren-accent/25 bg-coren-accent/5 px-8 py-10 text-center">
+          <blockquote class="mb-3 text-2xl font-bold gradient-text md:text-3xl">
+            "Your code never leaves your machine."
+          </blockquote>
+          <p class="text-sm text-tn-comment">That's not a slogan. It's the architecture.</p>
+        </div>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="reveal reveal-delay-2 card text-center">
+          <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-coren-accent/10">
+            <Icon name="lucide:server" class="h-5 w-5 text-coren-accent" />
+          </div>
+          <h3 class="mb-2 font-bold text-tn-text">Local proxy</h3>
+          <p class="text-sm leading-relaxed text-tn-comment">
+            All AI requests pass through a proxy running on your machine. Nothing is forwarded unless you choose a cloud provider.
+          </p>
+        </div>
+
+        <div class="reveal reveal-delay-3 card text-center">
+          <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-coren-accent/10">
+            <Icon name="lucide:database" class="h-5 w-5 text-coren-accent" />
+          </div>
+          <h3 class="mb-2 font-bold text-tn-text">Local storage</h3>
+          <p class="text-sm leading-relaxed text-tn-comment">
+            Conversation history and provider config are stored locally. No telemetry, no sync to a remote server.
+          </p>
+        </div>
+
+        <div class="reveal reveal-delay-4 card text-center">
+          <div class="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-coren-accent/10">
+            <Icon name="lucide:wifi-off" class="h-5 w-5 text-coren-accent" />
+          </div>
+          <h3 class="mb-2 font-bold text-tn-text">Air-gap ready</h3>
+          <p class="text-sm leading-relaxed text-tn-comment">
+            Run entirely offline with Ollama. Enterprise teams can deploy with no outbound network access at all.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── COMPARISON ────────────────────────────────────────────── -->
+  <section class="px-6 py-24" id="compare">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">How Coren compares</h2>
+        <p class="section-subtitle">vs cloud-first AI terminals</p>
+      </div>
+
+      <div class="reveal reveal-delay-1 overflow-hidden rounded-xl border border-white/[0.08]">
+        <!-- Header -->
+        <div class="grid grid-cols-3 border-b border-white/[0.08] bg-tn-night/60 px-6 py-3 text-xs font-bold uppercase tracking-[0.15em]">
+          <span class="text-tn-muted">Feature</span>
+          <span class="text-center text-coren-accent">Coren</span>
+          <span class="text-center text-tn-muted">Cloud alternatives</span>
+        </div>
+        <!-- Rows -->
+        {comparisonRows.map((row, i) => (
+          <div class={`grid grid-cols-3 items-center px-6 py-3.5 text-sm border-b border-white/[0.05] last:border-0 ${i % 2 === 0 ? 'bg-white/[0.01]' : ''}`}>
+            <span class="text-tn-subtext">{row.feature}</span>
+            <span class={`text-center font-semibold ${row.coren === '✓' ? 'text-tn-green' : 'text-tn-text'}`}>
+              {row.coren}
+            </span>
+            <span class={`text-center font-semibold ${row.cloud === '✗' ? 'text-tn-red/70' : 'text-tn-comment'}`}>
+              {row.cloud}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ENTERPRISE ────────────────────────────────────────────── -->
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-5xl">
+      <div class="reveal rounded-2xl border border-coren-accent/20 bg-gradient-to-br from-coren-accent/10 via-transparent to-transparent p-10 md:p-16">
+        <div class="grid items-start gap-12 md:grid-cols-2">
+          <div>
+            <p class="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-coren-accent">Enterprise</p>
+            <h2 class="mb-6 text-3xl font-bold tracking-tight text-tn-text">
+              For teams that can't afford a data leak.
+            </h2>
+            <p class="mb-8 leading-relaxed text-tn-subtext">
+              Coren is built for environments where compliance isn't optional. Route AI requests to your own models, never to shared infrastructure.
+            </p>
+            <a href="#install" class="btn-primary">
+              <Icon name="lucide:mail" class="h-4 w-4" />
+              Talk to us about deployment
+            </a>
+          </div>
+
+          <div class="space-y-4">
+            {[
+              { icon: 'lucide:route', text: 'Route all requests to your own models — never to shared cloud infrastructure.' },
+              { icon: 'lucide:wifi-off', text: 'Air-gap deployments with local Ollama or any OpenAI-compatible endpoint.' },
+              { icon: 'lucide:folder-lock', text: 'Per-project workspace context keeps team knowledge scoped and private.' },
+              { icon: 'lucide:key', text: 'No API key sharing — each developer brings their own credentials.' },
+            ].map((item) => (
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-coren-accent/10">
+                  <Icon name={item.icon} class="h-4 w-4 text-coren-accent" />
+                </div>
+                <p class="text-sm leading-relaxed text-tn-subtext">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── THEMES ────────────────────────────────────────────────── -->
   <section id="themes" class="px-6 py-24">
     <div class="mx-auto max-w-6xl">
       <div class="mb-16 text-center reveal">
-        <h2 class="section-title">Custom themes</h2>
-        <p class="section-subtitle">Set your preferred color scheme in `~/.config/coren/config`. Reloads without restarting.</p>
+        <h2 class="section-title">Your terminal, your aesthetic.</h2>
+        <p class="section-subtitle">Four carefully crafted themes built for long coding sessions. Switch instantly — no restart needed.</p>
       </div>
 
       <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
         {themes.map((theme, index) => (
           <div class={`card reveal reveal-delay-${index + 1} flex flex-col gap-4`}>
-            <!-- Color swatch row -->
             <div class="flex gap-1.5">
               {theme.colors.map((color) => (
                 <span
@@ -272,7 +491,6 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
                 ></span>
               ))}
             </div>
-            <!-- Mini terminal preview -->
             <div class="rounded-lg overflow-hidden border border-white/[0.07]" style={`background-color: ${theme.bg}`}>
               <div class="flex items-center gap-1 px-2 py-1.5 border-b border-white/[0.06]" style={`background-color: ${theme.bg}`}>
                 <span class="h-2 w-2 rounded-full bg-tn-red/60"></span>
@@ -293,184 +511,26 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
           </div>
         ))}
       </div>
-
-      <div class="mt-8 reveal reveal-delay-4">
-        <div class="terminal-window max-w-lg mx-auto">
-          <div class="terminal-chrome">
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
-            <span class="ml-3 text-xs font-bold text-tn-comment">~/.config/coren/config</span>
-          </div>
-          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># choose your theme</span>
-<span class="text-tn-text">theme = </span><span class="text-coren-accent">tokyonight</span>
-
-<span class="text-tn-comment"># reload inside coren with /u reload</span></code></pre>
-        </div>
-      </div>
     </div>
   </section>
 
-  <section id="install" class="px-6 py-24">
-    <div class="mx-auto max-w-4xl">
-      <div class="text-center reveal">
-        <h2 class="section-title">Install everything with one command</h2>
-        <p class="section-subtitle">The distributed installer downloads one platform bundle and installs `coren`, `coren-proxi`, and `corend` together.</p>
-      </div>
-
-      <div class="mt-10 space-y-5 text-left">
-        <div class="terminal-window reveal reveal-delay-1">
-          <div class="terminal-chrome">
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
-            <span class="ml-3 text-xs font-bold text-tn-comment">Step 1</span>
-          </div>
-          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># install coren, coren-proxi, and corend</span>
-<span class="text-tn-green">curl -fsSL https://tapiaw38.github.io/coren-website/install.sh | sh</span></code></pre>
-        </div>
-
-        <div class="terminal-window reveal reveal-delay-2">
-          <div class="terminal-chrome">
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
-            <span class="ml-3 text-xs font-bold text-tn-comment">Step 2</span>
-          </div>
-          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># bootstrap MongoDB and provider setup</span>
-<span class="text-tn-green">corend init</span></code></pre>
-        </div>
-
-        <div class="terminal-window reveal reveal-delay-3">
-          <div class="terminal-chrome">
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
-            <span class="ml-3 text-xs font-bold text-tn-comment">Step 3 — docker only</span>
-          </div>
-          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># start MongoDB container (docker source only)</span>
-<span class="text-tn-green">corend db start</span>
-
-<span class="text-tn-comment"># open the TUI</span>
-<span class="text-tn-green">coren</span></code></pre>
-        </div>
-      </div>
-
-      <div class="mt-8 grid gap-4 md:grid-cols-3">
-        <div class="card p-5">
-          <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-comment">Binaries</p>
-          <p class="text-sm leading-relaxed text-tn-subtext">The installer puts `coren`, `coren-proxi`, and `corend` in the same bin directory and creates `cor -> coren`.</p>
-        </div>
-        <div class="card p-5">
-          <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-comment">Proxy default</p>
-          <p class="text-sm leading-relaxed text-tn-subtext">The normal user flow should just be `coren-proxi` and then `coren`. Extra flags should not be necessary in the website onboarding.</p>
-        </div>
-        <div class="card p-5">
-          <p class="mb-2 text-xs uppercase tracking-[0.2em] text-tn-comment">Release bundle</p>
-          <p class="text-sm leading-relaxed text-tn-subtext">Each platform release should ship a single `.tar.gz` containing those 3 binaries so install stays atomic and predictable.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="pricing" class="px-6 py-24">
-    <div class="mx-auto max-w-5xl">
-      <div class="mb-16 text-center reveal">
-        <h2 class="section-title">Pricing</h2>
-        <p class="section-subtitle">Free to install and run. Paid plans add support, premium features, and team capabilities.</p>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="card reveal reveal-delay-1 p-7">
-          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Always free</p>
-          <h3 class="mb-2 text-2xl font-bold text-tn-text">Coren</h3>
-          <p class="mb-6 text-4xl font-bold text-tn-text">Free</p>
-          <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
-            Install the binaries, run `corend init`, and open `coren`. No account required.
-          </p>
-          <div class="space-y-3 text-sm text-tn-subtext">
-            <p>Terminal UI, local proxy, and operator CLI</p>
-            <p>Per-service provider routing</p>
-            <p>Linux support available now</p>
-          </div>
-        </div>
-
-        <div class="card reveal reveal-delay-2 p-7">
-          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Coming soon</p>
-          <h3 class="mb-2 text-2xl font-bold text-tn-text">Paid plans</h3>
-          <p class="mb-6 text-4xl font-bold text-tn-text">From $2<span class="text-xl text-tn-subtext"> / mo</span></p>
-          <p class="mb-6 text-sm leading-relaxed text-tn-subtext">
-            Focused on support quality, premium features, and team capabilities — not on gating the core terminal workflow.
-          </p>
-          <div class="space-y-3 text-sm text-tn-subtext">
-            <p><span class="text-tn-text font-medium">$2</span> Personal — premium features for individuals</p>
-            <p><span class="text-tn-text font-medium">$5</span> Pro — priority features, earlier releases, faster fixes</p>
-            <p><span class="text-tn-text font-medium">$20</span> Team — private company models, dedicated deployments, stronger privacy</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!-- ─── PROVIDERS ─────────────────────────────────────────────── -->
   <section class="relative overflow-hidden px-6 py-24">
-    <img
-      src={`${import.meta.env.BASE_URL}coral.png`}
-      alt=""
-      aria-hidden="true"
-      class="pointer-events-none absolute right-[-8rem] bottom-[-6rem] w-[28rem] max-w-none opacity-[0.08] blur-[1px] select-none"
-    />
-    <div class="mx-auto max-w-5xl">
-      <div class="mb-16 text-center reveal">
-        <h2 class="section-title">Why this feels better</h2>
-        <p class="section-subtitle">The strongest part of coren is not a marketing claim. It is how the workflow stays inside the terminal instead of bouncing between separate surfaces.</p>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        <div class="card reveal reveal-delay-1 border-coren-accent/30 bg-coren-accent/10 p-7">
-          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Coren</p>
-          <h3 class="mb-4 text-2xl font-bold text-coren-accent">Built around the terminal</h3>
-          <div class="space-y-3 text-sm leading-relaxed text-tn-subtext">
-            <p>AI panel and shell stay in one interface.</p>
-            <p>Workspace context is carried into the proxy instead of living in a separate app.</p>
-            <p>Suggest, watch, execute, and debug are part of the same terminal flow.</p>
-            <p>Local proxy and Ollama support make local-first setups practical.</p>
-            <p>Private company models and company-owned model infrastructure fit the product direction better.</p>
-            <p>Lower entry pricing can stay simple instead of forcing a high monthly plan first.</p>
-          </div>
-        </div>
-
-        <div class="card reveal reveal-delay-2 border-tn-red/25 bg-tn-red/5 p-7">
-          <p class="mb-3 text-xs uppercase tracking-[0.2em] text-tn-comment">Typical alternative flow</p>
-          <h3 class="mb-4 text-2xl font-bold text-tn-red">More context switching</h3>
-          <div class="space-y-3 text-sm leading-relaxed text-tn-subtext">
-            <p><span class="font-semibold text-tn-red">Split surfaces:</span> terminal and AI usually live in different places.</p>
-            <p><span class="font-semibold text-tn-red">Lost context:</span> repo state often needs to be re-explained or reattached.</p>
-            <p><span class="font-semibold text-tn-red">Weaker shell link:</span> suggestions and debugging are less connected to the live shell state.</p>
-            <p><span class="font-semibold text-tn-red">Local models second:</span> local-first workflows are often secondary instead of first-class.</p>
-            <p><span class="font-semibold text-tn-red">Higher price floor:</span> stronger AI workflows often start behind higher monthly plans.</p>
-            <p><span class="font-semibold text-tn-red">Model freedom limited:</span> BYOK, private company models, and dedicated deployments are often restricted to paid or enterprise tiers.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="relative overflow-hidden px-6 py-24">
-    <div class="absolute inset-0 bg-gradient-to-br from-coren-accent/[0.06] via-transparent to-tn-cyan/[0.04] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-coren-accent/[0.05] via-transparent to-tn-cyan/[0.03] pointer-events-none"></div>
     <div class="mx-auto max-w-4xl text-center reveal">
-      <h2 class="section-title">Supported provider presets</h2>
-      <p class="section-subtitle">The current CLI ships built-in presets for local and hosted providers and also allows custom OpenAI-compatible endpoints.</p>
+      <h2 class="section-title">Bring your own model.</h2>
+      <p class="section-subtitle">Built-in presets for local and hosted providers. Any OpenAI-compatible endpoint works too.</p>
       <div class="mt-8 flex flex-wrap justify-center gap-3">
         {providers.map((provider) => (
           <span class="rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs text-tn-subtext">{provider}</span>
         ))}
       </div>
-      <div class="mx-auto mt-8 max-w-3xl rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 text-left">
-        <p class="mb-2 text-sm font-semibold text-tn-text">Recommended provider routing</p>
-        <p class="text-sm leading-relaxed text-tn-subtext">
-          `coren-proxi` can route each AI service to a different provider. A practical setup is `assistant -> deepseek` and `suggestions`, `inline`, `commit`, or `review` -> `ollama` with `gemma4:latest`, so high-frequency local flows stay cheap.
+      <div class="mx-auto mt-10 max-w-3xl rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 text-left">
+        <p class="mb-1 text-sm font-semibold text-tn-text">Route different tasks to different providers</p>
+        <p class="mb-4 text-sm leading-relaxed text-tn-subtext">
+          Keep high-frequency local flows cheap with Ollama, and use cloud providers only where it counts.
         </p>
-        <pre class="mt-4 overflow-x-auto rounded-xl border border-white/[0.08] bg-tn-night/70 p-4 text-xs font-mono"><code><span class="text-tn-green">corend ia-service use assistant deepseek</span>
+        <pre class="overflow-x-auto rounded-xl border border-white/[0.08] bg-tn-night/70 p-4 text-xs font-mono"><code><span class="text-tn-green">corend ia-service use assistant deepseek</span>
 <span class="text-tn-green">corend ia-service use suggestions ollama</span>
 <span class="text-tn-green">corend ia-service use inline ollama</span>
 <span class="text-tn-green">corend ia-service use commit ollama</span>
@@ -479,20 +539,188 @@ const providers = ['ollama', 'deepseek', 'openai', 'anthropic', 'gemini', 'groq'
     </div>
   </section>
 
-  <section class="px-6 py-20 border-t border-white/[0.06]">
-    <div class="mx-auto max-w-2xl text-center reveal">
-      <p class="mb-3 text-xs uppercase tracking-[0.2em] text-coren-accent">Early access</p>
-      <h2 class="mb-4 text-2xl font-bold text-tn-text">Want to try coren?</h2>
-      <p class="mb-8 leading-relaxed text-tn-subtext">
-        Install the binaries, run `corend init`, and you're up.
+  <!-- ─── PRICING ───────────────────────────────────────────────── -->
+  <section id="pricing" class="px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-16 text-center reveal">
+        <h2 class="section-title">Start free. Upgrade when it matters.</h2>
+        <p class="section-subtitle">The core terminal workflow is free, forever. Paid plans add support, premium features, and team capabilities.</p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+        <!-- Free -->
+        <div class="card reveal reveal-delay-1 flex flex-col p-7 border-coren-accent/30">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-coren-accent">Always Free</p>
+          <h3 class="mb-1 text-xl font-bold text-tn-text">Core</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-text">$0</p>
+          <div class="mb-6 space-y-2.5 text-sm text-tn-subtext flex-1">
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Terminal UI + local proxy</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />All four AI modes</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Per-service provider routing</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Workspace + project memory</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Linux · Ollama-native</p>
+          </div>
+          <a href="#install" class="btn-primary text-center text-sm justify-center">
+            Install now
+          </a>
+        </div>
+
+        <!-- Personal -->
+        <div class="card reveal reveal-delay-2 flex flex-col p-7">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-tn-comment">Personal</p>
+          <h3 class="mb-1 text-xl font-bold text-tn-text">Personal</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-text">$2<span class="text-xl text-tn-subtext"> / mo</span></p>
+          <div class="mb-6 space-y-2.5 text-sm text-tn-subtext flex-1">
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-tn-green mt-0.5 shrink-0" />Everything in Core</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-tn-green mt-0.5 shrink-0" />Premium features for individuals</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-tn-green mt-0.5 shrink-0" />Earlier releases</p>
+          </div>
+          <button class="btn-secondary text-center text-sm justify-center" disabled>
+            Join waitlist
+          </button>
+        </div>
+
+        <!-- Pro -->
+        <div class="card reveal reveal-delay-3 flex flex-col p-7">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-tn-comment">Pro</p>
+          <h3 class="mb-1 text-xl font-bold text-tn-text">Pro</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-text">$5<span class="text-xl text-tn-subtext"> / mo</span></p>
+          <div class="mb-6 space-y-2.5 text-sm text-tn-subtext flex-1">
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-tn-green mt-0.5 shrink-0" />Everything in Personal</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-tn-green mt-0.5 shrink-0" />Priority feature requests</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-tn-green mt-0.5 shrink-0" />Faster fixes + premium support</p>
+          </div>
+          <button class="btn-secondary text-center text-sm justify-center" disabled>
+            Join waitlist
+          </button>
+        </div>
+
+        <!-- Team -->
+        <div class="card reveal reveal-delay-4 flex flex-col p-7 border-coren-accent/20 bg-coren-accent/5">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-coren-accent">Team</p>
+          <h3 class="mb-1 text-xl font-bold text-tn-text">Team</h3>
+          <p class="mb-6 text-4xl font-bold text-tn-text">$20<span class="text-xl text-tn-subtext"> / seat</span></p>
+          <div class="mb-6 space-y-2.5 text-sm text-tn-subtext flex-1">
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Everything in Pro</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Private company model routing</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Dedicated deployments</p>
+            <p class="flex items-start gap-2"><Icon name="lucide:check" class="h-4 w-4 text-coren-accent mt-0.5 shrink-0" />Air-gap + enterprise support</p>
+          </div>
+          <button class="btn-secondary text-center text-sm justify-center" disabled>
+            Talk to us
+          </button>
+        </div>
+      </div>
+
+      <p class="mt-8 text-center text-xs text-tn-muted reveal reveal-delay-4">
+        Paid tiers are in development. The free tier is complete and production-ready.
       </p>
-      <a
-        href={`${import.meta.env.BASE_URL}docs`}
-        class="btn-primary"
-      >
-        <Icon name="lucide:book-open" class="h-4 w-4" />
-        View setup guide
-      </a>
+    </div>
+  </section>
+
+  <!-- ─── INSTALL ───────────────────────────────────────────────── -->
+  <section id="install" class="relative overflow-hidden px-6 py-24">
+    <div class="absolute inset-0 bg-tn-night/30 pointer-events-none"></div>
+    <div class="relative mx-auto max-w-4xl">
+      <div class="text-center reveal">
+        <h2 class="section-title">Install in 60 seconds.<br class="hidden sm:block" />Keep forever.</h2>
+        <p class="section-subtitle">One command installs everything. No account required.</p>
+      </div>
+
+      <div class="mt-10 space-y-4 text-left">
+        <div class="terminal-window reveal reveal-delay-1">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-coren-accent">Step 1 — Install</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># download and install coren</span>
+<span class="text-tn-green">curl -fsSL https://tapiaw38.github.io/coren-website/install.sh | sh</span></code></pre>
+        </div>
+
+        <div class="terminal-window reveal reveal-delay-2">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-coren-accent">Step 2 — Bootstrap your environment</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># configure providers and set up local storage</span>
+<span class="text-tn-green">corend init</span>
+
+<span class="text-tn-comment"># start the local database</span>
+<span class="text-tn-green">corend db start</span></code></pre>
+        </div>
+
+        <div class="terminal-window reveal reveal-delay-3">
+          <div class="terminal-chrome">
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-red/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-yellow/60"></span>
+            <span class="h-2.5 w-2.5 rounded-full bg-tn-green/60"></span>
+            <span class="ml-3 text-xs font-bold text-coren-accent">Step 3 — Open Coren</span>
+          </div>
+          <pre class="overflow-x-auto p-4 text-sm font-mono"><code><span class="text-tn-comment"># launch the terminal</span>
+<span class="text-tn-green">coren</span></code></pre>
+        </div>
+      </div>
+
+      <div class="mt-8 grid gap-4 md:grid-cols-3 reveal reveal-delay-4">
+        <div class="card p-5">
+          <p class="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-tn-comment">
+            <Icon name="lucide:package" class="h-3.5 w-3.5" />Single bundle
+          </p>
+          <p class="text-sm leading-relaxed text-tn-subtext">
+            The installer drops all binaries into your PATH in one atomic operation.
+          </p>
+        </div>
+        <div class="card p-5">
+          <p class="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-tn-comment">
+            <Icon name="lucide:wifi-off" class="h-3.5 w-3.5" />Works offline
+          </p>
+          <p class="text-sm leading-relaxed text-tn-subtext">
+            Pair with Ollama and nothing ever leaves your machine — no internet required after setup.
+          </p>
+        </div>
+        <div class="card p-5">
+          <p class="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-tn-comment">
+            <Icon name="lucide:key" class="h-3.5 w-3.5" />No account
+          </p>
+          <p class="text-sm leading-relaxed text-tn-subtext">
+            No sign-up, no telemetry, no license check. Just install and run.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FINAL CTA ─────────────────────────────────────────────── -->
+  <section class="relative overflow-hidden px-6 py-24 border-t border-white/[0.06]">
+    <div class="absolute inset-0 bg-gradient-to-br from-coren-accent/[0.06] via-transparent to-tn-cyan/[0.04] pointer-events-none"></div>
+    <img
+      src={`${import.meta.env.BASE_URL}coral.png`}
+      alt=""
+      aria-hidden="true"
+      class="pointer-events-none absolute right-[-8rem] bottom-[-6rem] w-[28rem] max-w-none opacity-[0.07] blur-[1px] select-none"
+    />
+    <div class="relative mx-auto max-w-2xl text-center reveal">
+      <p class="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-coren-accent">Get started</p>
+      <h2 class="mb-4 text-3xl font-bold tracking-tight text-tn-text sm:text-4xl">
+        AI that works for you,<br />not against your privacy.
+      </h2>
+      <p class="mb-8 leading-relaxed text-tn-subtext">
+        Install Coren in 60 seconds. No account, no cloud, no trade-offs.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#install" class="btn-primary">
+          <Icon name="lucide:download" class="h-4 w-4" />
+          Install Coren — it's free
+        </a>
+        <a href={`${import.meta.env.BASE_URL}docs`} class="btn-secondary">
+          <Icon name="lucide:book-open" class="h-4 w-4" />
+          Read the docs
+        </a>
+      </div>
     </div>
   </section>
 </Layout>
