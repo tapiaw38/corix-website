@@ -29,6 +29,14 @@
            transition-all duration-200 inline-flex items-center gap-2;
   }
 
+  .btn-secondary:disabled {
+    @apply opacity-40 cursor-not-allowed pointer-events-none;
+  }
+
+  .btn-primary:disabled {
+    @apply opacity-40 cursor-not-allowed pointer-events-none;
+  }
+
   .card {
     @apply bg-white/[0.03] rounded-lg p-6 border border-white/[0.07]
            hover:bg-white/[0.05] hover:border-coren-accent/20
